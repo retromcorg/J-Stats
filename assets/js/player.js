@@ -81,6 +81,14 @@ $(document).ready(function () {
     $("#assistant").html(a.join(", "));
     $(".asst").show();
     }
+    if(typeof response.member != 'undefined') {
+    let a = [];
+    response.member.forEach(k => {
+    a.push(`<a href="village?u=${k[0]}">${k[1]}</a>`);
+    });
+    $("#member").html(a.join(", "));
+    $(".mem").show();
+    }
     }
     }
     });

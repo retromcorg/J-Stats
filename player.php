@@ -147,10 +147,13 @@ echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placemen
 <label class='col-6 col-md-6' style='font-weight: bold;'>Owns</label>
 <span id="owned"><span>
 </div>
+<div class="card-title mem" style="display: none;">
+<label class='col-6 col-md-6' style='font-weight: bold;'>Member In</label>
+<span id="member"><span>
+</div>
 <div class="card-title asst" style="display: none;">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Assistant In</label>
 <span id="assistant"><span>
-
 </div>
 </div>
 </div>

@@ -18,6 +18,16 @@ if($_POST) {
                 $result['assistant'][] = [$assistant, getVillageName($db, $assistant)];
             }
 
+            $db->groupby("village_id");
+            $db->orderby("t", "DESC");
+            $db->where("village_id", getVillageID($db, $village['uuid']));
+            $data = json_decode($db->getOne("village_stats"),true);
+           foreach($data as $d) {
+                   if($d == $u) {
+                        $result['member'][] = [getVillageUUID($db, $d['village_id']), getVillageNameID($db, $d['village_id'])];
+                   }
+           }
+
             echo json_encode($result, true);
         }
     }
