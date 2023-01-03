@@ -1,0 +1,185 @@
+@font-face {
+    font-family: 'Minecraft';
+    src: url('fonts/Minecraft-Regular.otf');
+
+}
+
+body {
+    background-color: rgb(17, 17, 17);
+    color: rgb(219, 219, 219);
+    font-family:'Minecraft'
+}
+
+.breadcrumb-item {
+    padding: none;
+}
+
+a {
+    color: #00c377;
+}
+
+.dropdown-toggle.active-dropdown::after {
+    transform: rotate(-90deg);
+}
+
+.copybtn {
+	    cursor:pointer !important;;
+	        font-weight: bold;
+	}
+
+
+a:hover,a:active {
+    color: #00995e;
+}
+
+
+.bg-dark,.table-dark {
+    background-color: #131313 !important;
+}
+
+.alert-dark {
+    background-color: #131313 !important;
+    border: #393939 1px solid !important;
+    color: rgba(255,255,255,.75);
+    text-align: left;
+}
+
+.table-dark td, .table-dark th, .table-dark thead th {
+    border: #393939 1px solid !important;
+}
+
+.form-control, .table-dark {
+    border: #393939 1px solid !important;
+    color: rgba(255,255,255,.75);
+}
+
+
+.btn-dark {
+    background-color: #131313 !important;
+    border: #393939 1px solid !important;
+}
+
+.container {
+    margin: auto;
+}
+
+h1,h2,h3,h4,h5 {
+    color: #c7c7c7;
+}
+
+.table {
+    color: white;
+}
+
+.bans {
+    display: none;
+}
+
+.card {
+    border: #393939 1px solid;
+    background-color: #1e1e1e    ;
+}
+.card-header {
+    background-color: #111111    ;
+    text-decoration:wavy;
+}
+
+h2 a {
+    text-decoration: none;
+}
+
+code,pre {
+    color: rgb(156, 156, 156);
+    padding: 10px;
+    background-color: #131313;
+}
+
+hr {
+    border: solid 1px #393939;
+}
+
+.form-control {
+    background-color: #131313;
+    border-color: #131313;
+    color: rgb(156, 156, 156);
+}
+
+
+table {
+border-collapse: collapse;
+width: 100%;
+}
+
+.navbar-dark {
+background-color: #111 !important;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: #111111    !important;
+    color: rgb(156, 156, 156);
+}
+
+.dropdown-item, .dropdown-item:active {
+    background-color: #131313 !important;
+    color: rgb(144, 144, 144);
+}
+
+.dropdown-menu {
+    background-color: #131313    !important;
+    border: #393939 1px solid;
+    text-align: center;
+}
+
+footer {
+    padding: 50px;
+}
+
+
+
+#skin_container {
+    cursor: move;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.villages {
+    display: none;
+}
+
+.footer {
+    background-color: #111111 !important;
+    color: #dbdbdb;
+}
+
+
+
+.copybtn {
+    cursor:pointer !important;;
+    font-weight: bold;
+}
+
+.coords {
+    display: none;
+}
+
+.staff-card {
+    display: none;
+}
+.rainbow_text_animated {
+    background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow_animation 3s ease-in-out infinite;
+    background-size: 400% 100%;
+}
+
+@keyframes rainbow_animation {
+    0%,100% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 100% 0;
+    }
+}
