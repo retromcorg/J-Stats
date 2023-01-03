@@ -15,8 +15,7 @@ include_once("internal/backbone.php");
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href="assets/style.css">
 <meta name="robots" content="index, follow">
-<link id="favicon" rel="icon" href="assets/img/icon.png">
-<link rel="apple-touch-icon" href="assets/img/icon.png">
+<link rel="icon" href="assets/img/icon.png">
 <link rel="canonical" href="https://j-stats.xyz/leaderboard">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
