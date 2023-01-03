@@ -59,7 +59,7 @@ if($user['uuid'] == '3e613ca1-2636-4bd4-bb0b-d47086269030' || $user['uuid'] == '
 <?php
 }
 else {
-echo '<span id="is_banned">' . $n . '</span>';
+echo '<span class="banned" data-toggle="banned" data-placement="left" title="This user has this color because they have been banned from the server.">' . $n . '</span>';
 } ?>
 <span id="status" class="status-result"></span></h2>
 </div>
@@ -74,6 +74,10 @@ elseif($user['uuid'] == '2cfc6452-a6b4-4c49-982e-492eaa3a14ec') {
 echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placement="left" title="RhysB" class="text-danger"><span class="fa fa-github"></span></a></h2>';
 }
 ?>
+
+<input type="hidden" id="q_username" name="username" value="<?php echo $user['uuid']; ?>">
+<input type="hidden" id="q_uuid" value="<?php echo $u;?>">
+
 </div>
 </div>
 <div class="d-flex justify-content-between">
@@ -220,11 +224,28 @@ echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placemen
 </div>
 <div class="card-title ban-list" style="display: none;">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Bans</label>
-<button class="btn btn-sm btn-danger" id="show_bans"><span>
+<button type="button" id="view" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary">View bans</button>
 
 </div>
 </div>
 </div>
+
+
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark">
+        <div class="modal-header bg-dark">
+          <h4 class="modal-title bg-dark"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body bg-dark"></div>
+        <div class="modal-footer bg-dark">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 
 </div>
@@ -238,116 +259,7 @@ echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placemen
 </div>
 
 <script src="assets/js/skinview3d.bundle.js"></script>
-<script>
-$(document).ready(function () {
-
-let skinViewer = new skinview3d.SkinViewer({
-canvas: document.getElementById("skin_container"),
-skin: 'https://minotar.net/skin/<?php echo $u; ?>'
-});
-
-skinViewer.width = 350;
-skinViewer.height = 350;
-
-$.ajax({
-url: 'ajax/getUserCape',
-type: 'POST',
-data: {
-uuid: "<?php echo $u ?>"
-},
-dataType: 'text',
-success: function(response) {
-
-if(response.length != 0) {
-skinViewer.loadCape(response);
-}
-}
-});
-
-skinViewer.controls.enableZoom = false
-skinViewer.zoom = 0.8;
-skinViewer.fov = 85;
-skinViewer.animation = new skinview3d.WalkingAnimation();
-skinViewer.animation.headBobbing = false;
-skinViewer.animation.speed = 0.5;
-
-$('[data-toggle="tooltip"]').tooltip();   
-
-$.ajax({
-url: 'ajax/isUserOnline',
-type: 'POST',
-data: {
-username: "<?php echo $n ?>"
-},
-dataType: 'json',
-success: function(response) {
-$('#status').show();
-if(response.status == "online") {
-$(".status-result").html('<span class="badge badge-pill badge-success"><span class="fa fa-check"></span></span>');
-$(".coords").show();
-$("#x").text(response.x);
-$("#y").text(response.y);
-$("#z").text(response.z);
-} else {
-$(".status-result").html('<span class="badge badge-pill badge-danger"><span class="fa fa-times"></span></span>');
-} 
-}
-});
-});
-
-
-$.ajax({
-url: 'ajax/getUserVillage',
-type: 'POST',
-data: {
-uuid: "<?php echo $u ?>"
-},
-dataType: 'json',
-success: function(response) {
-if(response.length != 0) {
-$(".villages").show();
-if(typeof response.owner != 'undefined') {
-let o = [];
-response.owner.forEach(l => {
-o.push(`<a href="village?u=${l[0]}">${l[1]}</a>`);
-});
-$("#owned").html(o.join(', '));
-$(".own").show();
-}
-if(typeof response.assistant != 'undefined') {
-let a = [];
-response.assistant.forEach(k => {
-a.push(`<a href="village?u=${k[0]}">${k[1]}</a>`);
-});
-$("#assistant").html(a.join(", "));
-$(".asst").show();
-}
-}
-}
-});
-
-
-$.ajax({
-url: 'ajax/isUserBanned',
-type: 'POST',
-data: {
-uuid: "<?php echo $u ?>"
-},
-dataType: 'json',
-success: function(response) {
-if(response.bans.length != 0) {
-    $(".bans").show();
-    if(response.active > 0) {
-        $("#is_banned").css({"background-color": "red","color": "black","text-decoration": "strikethrough"});
-    }
-    $("#total-bans").text(response.total);
-}
-}
-});
-
-
-
-</script>
+<script src="assets/js/player.js"></script>
 <script src="assets/js/app.js"></script>
 <?php include_once("includes/footer.php"); ?>
 </body>

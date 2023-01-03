@@ -19,7 +19,7 @@ if($_POST) {
                         "player" => [$ban['playerName'], $ban['playerUUID']],
                         "reason" => $ban['reason'],
                         "pardoned" => $ban['pardoned'],
-                        "evidence" => json_encode($ban['evidence'])
+                        "evidence" => $ban['evidence']
                     ];
                 }
                 if($ban['pardoned'] == false) {

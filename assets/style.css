@@ -25,7 +25,7 @@ a {
 .copybtn {
 	    cursor:pointer !important;;
 	        font-weight: bold;
-	}
+}
 
 
 a:hover,a:active {
@@ -151,8 +151,6 @@ footer {
     color: #dbdbdb;
 }
 
-
-
 .copybtn {
     cursor:pointer !important;;
     font-weight: bold;
@@ -160,6 +158,12 @@ footer {
 
 .coords {
     display: none;
+}
+
+#is_banned {
+    text-decoration: line-through; 
+    text-decoration-color: #dc3545;
+    text-decoration-thickness: 5px !important;
 }
 
 .staff-card {
