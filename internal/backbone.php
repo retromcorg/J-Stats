@@ -25,6 +25,8 @@
         "hero" => "&2Hero",
         "legend" => "&1Legend",
         "veteran" => "&bSen&2ior",
+    	"donatorplusplus" => "&cDonator++",
+	    "developer" => "&c&oDeveloper"
     ];
 
     // minecraft color helper
@@ -34,7 +36,7 @@
 
     // if a user is a staff member
     function isStaff($group) {
-        if(in_array($group, ["helper", "moderator", "admin"])) {
+        if(in_array($group, ["helper", "developer", "moderator", "admin"])) {
             return true;
         }
         else {

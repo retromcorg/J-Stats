@@ -28,7 +28,7 @@ $v = $db->getOne("villages", "COUNT(id) as cnt");
 
 $c = $db->getOne("users", "COUNT(id) as cnt");
 
-$db->where("g",["admin","helper", "moderator"] ,"IN");
+$db->where("g",["admin","helper", "developer", "moderator"] ,"IN");
 $h = $db->getOne("users", "COUNT(id) as cnt");
 
 $db->where("g",["admin"] ,"IN");
@@ -37,8 +37,8 @@ $db->where("g",["helper"] ,"IN");
 $h2 = $db->getOne("users", "COUNT(id) as cnt");
 $db->where("g",["moderator"] ,"IN");
 $h3 = $db->getOne("users", "COUNT(id) as cnt");
-
-
+$db->where("g",["developer"] ,"IN");
+$h4 = $db->getOne("users", "COUNT(id) as cnt");
 
 $db->where("firstJoin > UNIX_TIMESTAMP(NOW() - INTERVAL 24 HOUR)");
 $last24h = $db->getOne("users", "count(id) as cnt");
@@ -94,6 +94,9 @@ $p7 = $db->getOne("users", "COUNT(id) as cnt");
 
 
 
+$db->where("g",["donatorplusplus"] ,"IN");
+$p8 = $db->getOne("users", "COUNT(id) as cnt");
+
 echo json_encode([
     "total_users" => $c['cnt'],
     "daily_users" => $last24h['cnt'],
@@ -114,7 +117,8 @@ echo json_encode([
             "mystic" => $p4['cnt'],
             "hero" => $p5['cnt'],
             "donator" => $p6['cnt'],
-            "legend" => $p7['cnt']
+            "legend" => $p7['cnt'],
+            "donatorplusplus" => $p8['cnt']
         ]
     ], 
     "staff" => [
@@ -123,7 +127,9 @@ echo json_encode([
         "admin" => $h1['cnt'],
         "moderator" => $h2['cnt'],
         "helper" => $h3['cnt'],
-    ]]
+	"developer" => $h4['cnt']
+    ]
+    ]
 ], true);
 
 

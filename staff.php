@@ -36,7 +36,7 @@ include_once("internal/backbone.php");
 <div class="row">
 <?php
 
-$db->where("g",["admin","helper", "moderator"] ,"IN");
+$db->where("g",["admin","developer","helper", "moderator"] ,"IN");
 $ca = $db->get("users");
 
 foreach($ca as $c) {
