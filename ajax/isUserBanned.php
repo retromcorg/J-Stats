@@ -19,14 +19,12 @@ if($_POST) {
                         "player" => [$ban['playerName'], $ban['playerUUID']],
                         "reason" => $ban['reason'],
                         "pardoned" => $ban['pardoned'],
-                        "evidence" => $ban['evidence']
+                        "evidence" => $ban['evidence'],
+			"dates" => [to_time_ago($ban['timeIssued']), unix($ban['timeIssued'])]
                     ];
                 }
-                if($ban['pardoned'] == false) {
-                    $activeBans++;
-                }
             }
-            $bans['active'] = $activeBans;
+	    $bans['isBanned'] = $data['isBanned'];
             $bans['total'] = $banCount;
             echo json_encode($bans);
         }

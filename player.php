@@ -74,7 +74,7 @@ echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placemen
 }
 ?>
 
-<input type="hidden" id="q_username" name="username" value="<?php echo $user['uuid']; ?>">
+<input type="hidden" id="q_username" name="username" value="<?php echo $n; ?>">
 <input type="hidden" id="q_uuid" value="<?php echo $u;?>">
 
 </div>

@@ -42,13 +42,11 @@ $(document).ready(function () {
     success: function(response) {
     $('#status').show();
     if(response.status == "online") {
-    $(".status-result").html('<span class="badge badge-pill badge-success"><span class="fa fa-check"></span></span>');
+    $(".status-result").html(' <span class="badge badge-pill badge-success"> </span></span>');
     $(".coords").show();
     $("#x").text(response.x);
     $("#y").text(response.y);
     $("#z").text(response.z);
-    } else {
-    $(".status-result").html('<span class="badge badge-pill badge-danger"><span class="fa fa-times"></span></span>');
     } 
     }
     });
@@ -104,7 +102,7 @@ $(document).ready(function () {
     success: function(response) {
     if(response.total != 0) {
         $(".bans").show();
-        if(response.active > 0) {
+        if(response.isBanned) {
             $('[data-toggle="banned"]').tooltip();   
             $(".banned").prop("id", "is_banned");
         }

@@ -1,7 +1,6 @@
 <?php
 
 include_once("../internal/backbone.php");
-
 if($_POST) {
     if(isset($_POST['uuid'])) {
         $u = htmlspecialchars(strip_tags($_POST['uuid']));
@@ -20,10 +19,10 @@ if($_POST) {
 
             $db->groupby("village_id");
             $db->orderby("t", "DESC");
-            $db->where("village_id", getVillageID($db, $village['uuid']));
-            $data = json_decode($db->getOne("village_stats"),true);
+            $data = $db->get("village_stats");
+
            foreach($data as $d) {
-                   if($d == $u) {
+                   if(in_array($u, json_decode($d['members'], true))) {
                         $result['member'][] = [getVillageUUID($db, $d['village_id']), getVillageNameID($db, $d['village_id'])];
                    }
            }

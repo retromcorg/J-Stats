@@ -9,6 +9,7 @@
     include_once(dirname(__FILE__) . '/funcs.php');
     include_once(dirname(__FILE__) . '/db.php');
     include_once(dirname(__FILE__) . '/MinecraftColors.php');
+    include_once(dirname(__FILE__) . '/pagination.php');
 
     use \Spirit55555\Minecraft\MinecraftColors;
 
@@ -43,5 +44,21 @@
             return false;
         }
     }
+
+    // top methods
+    $methods = [
+        "money" => "Balance", 
+        "playerDeaths" => "Player Deaths",
+        "trustScore" => "Trust Score",
+        "playersKilled" => "Players Killed", 
+        "joinCount" => "Join Count", 
+        "metersTraveled" => "Blocks Traveled", 
+        "blocksPlaced" => "Blocks Placed", 
+        "playTime" => "Playtime", 
+        "itemsDropped" => "Items Dropped",
+        "trustLevel" => "Trust Level",
+        "creaturesKilled" => "Mobs Killed", 
+        "blocksDestroyed" => "Blocks destroyed"
+    ];
 
 ?>
