@@ -36,7 +36,19 @@ foreach ($d as $row) {
 <tr>
 <td><img src="https://crafatar.com/avatars/<?php echo getUUID($db, $row['user_id']) ?>?size=25&overlay"></td>
 <td><a href="./player?u=<?php echo getUUID($db, $row['user_id']) ?>&n=<?php echo getUsername($db, $row['user_id']); ?>"><?php echo getUsername($db, $row['user_id']); ?></a></td>
+<?php
+if($c == 'playTime') {
+?>
+<td><?php echo secondsToWordsMini($row[$c]) ?></td>
+<?php
+} else {
+?>
 <td><?php echo $row[$c] ?></td>
+<?php
+}
+?>
+</tr>
+</table>
 <tr>
 <?php
 }
