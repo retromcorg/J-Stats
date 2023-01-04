@@ -39,7 +39,7 @@ foreach ($d as $row) {
 <?php
 if($c == 'playTime') {
 ?>
-<td><?php echo secondsToWordsMini($row[$c]) ?></td>
+<td><span data-toggle="tooltip" data-placement="right" title="<?php  echo unix($user['firstJoin']); ?>"><?php echo to_time_ago($user['firstJoin']) ?> ago</span></td>
 <?php
 } else {
 ?>

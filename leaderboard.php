@@ -44,29 +44,9 @@ foreach($methods as $method => $label) {
 <br>
 
 <div class="leaderboard"></div>
-
 </div>
-<script>
-$(document).ready(function() {
-    document.getElementsByName("cat")[0].addEventListener('change', getLb);
 
-function getLb() {
-    let cat = document.getElementsByName("cat")[0].value;
-    $.ajax({
-        url: 'ajax/getLeaderboard',
-        type: 'POST',
-        data: {
-        category: cat
-        },
-        dataType: 'text',
-        success: function(response) {
-            $(".leaderboard").html(response);
-        }
-});
-
-};
-
-});</script>
+<script src="assets/js/leaderboard.js"></script>
 <script src="assets/js/app.js"></script>
 <?php include_once("includes/footer.php"); ?>
 </body>
