@@ -58,26 +58,6 @@
 </div>
 </div>
 
-<div class="card bg-dark" style="margin-top:30px" id="credit">
-<div class="card-header">
-<strong>How it works</strong>
-</div>
-<div class="card-body"> 
-<p>You can search for your username, see Beta Evolutions capes, villages and more.</p>
-<p>I do not have enough data about the server yet to show nice graphs of historical data but the plan is to have charts of overall server data over time.</p>
-<p class="text-danger">* Starting Indexing data on 01/01/23</p>
-</div>
-</div>
-
-<div class="card bg-dark" style="margin-top:30px" id="credit">
-<div class="card-header">
-<strong>Credit</strong>
-</div>
-<div class="card-body">    
-<p><strong>JohnyMuffin</strong> for the help also for making RetroMC, and the API's that this site relies on to get it's data.</p>
-</div>
-</div>
-</div>
 
 <?php
 
@@ -90,6 +70,24 @@ echo '<script>Swal.fire({
 title: "Empty Input",
 icon: "error",
 text: "Please enter a username/uuid.",
+allowOutsideClick: false,
+allowEscapeKey: false
+});</script>';
+}
+elseif($m ==23) {
+echo '<script>Swal.fire({
+title: "Empty Input",
+icon: "error",
+text: "Village could not be fetched.",
+allowOutsideClick: false,
+allowEscapeKey: false
+});</script>';
+}
+elseif($m == 3) {
+echo '<script>Swal.fire({
+title: "Not found",
+icon: "error",
+text: "This village could not be found",
 allowOutsideClick: false,
 allowEscapeKey: false
 });</script>';

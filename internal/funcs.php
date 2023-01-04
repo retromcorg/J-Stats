@@ -31,6 +31,18 @@
         }       
     }
 
+    function super_unique($array,$key)
+    {
+    $temp_array = [];
+    foreach ($array as &$v) {
+            if (!isset($temp_array[$v[$key]]))
+                $temp_array[$v[$key]] =& $v;
+        }
+    $array = array_values($temp_array);
+    return $array;
+
+    }
+
     // search array for value then return data
     function searchArray($array, $k, $v) {
         foreach ($array as $key => $value) {

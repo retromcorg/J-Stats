@@ -8,8 +8,10 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="./">Home</a>
-
       </li>  
+      <li class="nav-item">
+        <a class="nav-link" href="./faq">FAQ</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="./server">Server</a>
       </li>
@@ -20,15 +22,12 @@
       Information
       </a>
       <div class="dropdown-menu">
+      <a class="dropdown-item" href="./villages">Villages</a>
       <a class="dropdown-item" href="./capes">Capes</a>
       <a class="dropdown-item" href="./staff">Staff</a>
-      <a class="dropdown-item" href="./item-list">Item List</a>
+      <a class="dropdown-item" href="./signs">Signs</a>
       </div>
     </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="./villages">Villages</a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" href="./leaderboard">Leaderboard</a>
       </li>

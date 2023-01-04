@@ -30,61 +30,65 @@ include_once("internal/backbone.php");
 <div class="container" style="margin-top:30px">
 
 <h2>Villages</h2>
-<p>Here you can see all the villages.</p>
+<p>Here you can see all the Villages.</p>
 
-<input class="form-control bg-dark" id="myInput" type="text" placeholder="Filter through list..">
-<br>
-<div class="row">
 
-<?php
-
-$villages = $db->get("villages");
-
-foreach ($villages as $village) {
-
-?>
-<div class="col-lg-4 title">
 <div class="card bg-dark">
-<div class="card-header"><?php echo $village['name'] ?></div>
+<div class="card-header">Villages</div>
 <div class="card-body">
-<table class="table table-borderless table-sm">
+
+<table class="table table-borderless">
 <thead>
 <tr>
+<th>Village</th>
 <th>Members</th>
 <th>Assistants</th>
 <th>Claims</th>
 </tr>
+</thead>
+<tbody id="myTable">
+
 <?php
+
+$records_per_page = 20;
+$pagination = new Zebra_Pagination();
+
+$limit = [(($pagination->get_page() - 1) * $records_per_page), $records_per_page];
+$villages = $db->get("villages", $limit);
+
+// fetch the total number of records in the table
+$rows = $db->getOne("villages", "COUNT(*) as cnt");
+
+$pagination->records($rows['cnt']);
+$pagination->records_per_page($records_per_page);
+
+foreach ($villages as $village) {
+
 $v = getVillageStats($db, $village['id']);
 ?>
-<tbody>
 <tr>
-    <td><?php echo $v['memberCount'] ?></td>
-    <td><?php echo $v['assistantsCount'] ?></td>
-    <td><?php echo $v['claims'] ?></td>
+<td><a href="village?u=<?php echo $village['uuid'] ?>"><?php echo $village['name'] ?></a></td>
+<td><?php echo $v['memberCount'] ?></td>
+<td><?php echo $v['assistantsCount'] ?></td>
+<td><?php echo $v['claims'] ?></td>
 </tr>
-</tbody>
-</table>
-<a href="village?u=<?php echo $village['uuid'] ?>" class="btn btn-sm btn-info">view village</a>
-</div>
-</div>
-<br>
-</div>
+
 <?php
 }
 ?>
+</tbody>
+</table>
+
 </div>
 
-<script>
-$(document).ready(function(){
-$("#myInput").on("keyup", function() {
-var value = $(this).val().toLowerCase();
-$(".title").filter(function() {
-$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-});
-});
-});
-</script>
+</div>
+<br>
+<div class="justify-content-center">
+<?php
+$pagination->render();
+?>
+</div>
+</div>
 <script src="assets/js/app.js"></script>
 <?php include_once("includes/footer.php"); ?>
 </body>
