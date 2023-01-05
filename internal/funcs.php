@@ -257,20 +257,34 @@
 
     // insert village stats
     function insertVillageStats($db, $payload) {
-        $data = [
-            "village_id" => getVillageID($db,$payload['uuid']),
-            "claims" => $payload['claims'], 
-            "t" => time(),
-            "members" => json_encode($payload['members'], true),
-            "memberCount" => count($payload['members']),
-            "flags" => json_encode($payload['flags']),
-            "spawn" => json_encode($payload['spawn'], true),
-            "assistants" => json_encode($payload['assistants'], true),
-            "assistantsCount" => count($payload['assistants'])
-        ];
-        $insert = $db->insert("village_stats", $data);
-        if(!$insert) {
-            logError($db, "Error inserting village stats : " . $db->getLastError());
+
+        $db->where("village_id", getVillageID($db,$payload['uuid']));
+        $db->where("claims", $payload['claims']);
+        $db->where("members", json_encode($payload['members'], true));
+        $db->where("memberCount", count($payload['members']));
+        $db->where("flags", json_encode($payload['flags']));
+        $db->where("spawn", json_encode($payload['spawn'], true));
+        $db->where("assistants", json_encode($payload['assistants'], true));
+        $db->where("assistantsCount", count($payload['assistants']));
+        
+        $check = $db->getOne("village_stats");
+
+        if(!$check) {            
+            $data = [
+                "village_id" => getVillageID($db,$payload['uuid']),
+                "claims" => $payload['claims'], 
+                "t" => time(),
+                "members" => json_encode($payload['members'], true),
+                "memberCount" => count($payload['members']),
+                "flags" => json_encode($payload['flags']),
+                "spawn" => json_encode($payload['spawn'], true),
+                "assistants" => json_encode($payload['assistants'], true),
+                "assistantsCount" => count($payload['assistants'])
+            ];
+            $insert = $db->insert("village_stats", $data);
+            if(!$insert) {
+                logError($db, "Error inserting village stats : " . $db->getLastError());
+            }
         }
     }
 
@@ -332,28 +346,50 @@
 
     // insert user into stats table
     function insertUserStats($db, $payload) {
-        $data = [
-            "user_id" => getUserID($db, $payload['uuid']),
-            "playerDeaths" => $payload['playerDeaths'],
-            "playersKilled" => $payload['playersKilled'],
-            "joinCount" => $payload['joinCount'],
-            "itemDropDetails" =>  json_encode($payload['itemDropDetails'], true),
-            "metersTraveled" =>	$payload['metersTraveled'],
-            "trustScore" =>	$payload['trustScore'],
-            "blockDetailsPlaced" =>	json_encode($payload['blockDetailsPlaced'], true),
-            "blocksPlaced" => $payload['blocksPlaced'],
-            "itemsDropped" => $payload['itemsDropped'],
-            "blockDetailsDestroyed" => json_encode($payload['blockDetailsDestroyed'], true),
-            "trustLevel" =>	$payload['trustLevel'],
-            "creaturesKilled" => $payload['creaturesKilled'],
-            "money" =>	$payload["money"],
-            "blocksDestroyed" => $payload['blocksDestroyed'],
-            "t" => time(),
-            "playTime" => $payload['playTime'],
-        ];
-        $insert = $db->insert("user_stats", $data);
-        if(!$insert) {
-            logError($db, "Error inserting user stats : " . $db->getLastError());
+        // yeah yeah yeah it works...
+        $db->where("user_id", getUserID($db, $payload['uuid']));
+        $db->where("playerDeaths", $payload['uuid']);
+        $db->where("playerDeaths", $payload['playerDeaths']);
+        $db->where("playersKilled",$payload['playersKilled']);
+        $db->where("joinCount", $payload['joinCount']);
+        $db->where("itemDropDetails", json_encode($payload['itemDropDetails'], true));
+        $db->where("metersTraveled",$payload['metersTraveled']);
+        $db->where("trustScore",$payload['trustScore']);
+        $db->where("blockDetailsPlaced",json_encode($payload['blockDetailsPlaced'], true));
+        $db->where("blocksPlaced",$payload['blocksPlaced']);
+        $db->where("itemsDropped", $payload['itemsDropped']);
+        $db->where("blockDetailsDestroyed", json_encode($payload['blockDetailsDestroyed'], true));
+        $db->where( "trustLevel", $payload['trustLevel']);
+        $db->where("creaturesKilled",$payload['creaturesKilled']);
+        $db->where("money", $payload["money"]);
+        $db->where("blocksDestroyed", $payload['blocksDestroyed']);
+        $db->where("playTime", $payload['playTime']);
+
+        $check = $db->getOne("user_stats");
+        if(!$check) {
+            $data = [
+                "user_id" => getUserID($db, $payload['uuid']),
+                "playerDeaths" => $payload['playerDeaths'],
+                "playersKilled" => $payload['playersKilled'],
+                "joinCount" => $payload['joinCount'],
+                "itemDropDetails" =>  json_encode($payload['itemDropDetails'], true),
+                "metersTraveled" =>	$payload['metersTraveled'],
+                "trustScore" =>	$payload['trustScore'],
+                "blockDetailsPlaced" =>	json_encode($payload['blockDetailsPlaced'], true),
+                "blocksPlaced" => $payload['blocksPlaced'],
+                "itemsDropped" => $payload['itemsDropped'],
+                "blockDetailsDestroyed" => json_encode($payload['blockDetailsDestroyed'], true),
+                "trustLevel" =>	$payload['trustLevel'],
+                "creaturesKilled" => $payload['creaturesKilled'],
+                "money" =>	$payload["money"],
+                "blocksDestroyed" => $payload['blocksDestroyed'],
+                "t" => time(),
+                "playTime" => $payload['playTime'],
+            ];
+            $insert = $db->insert("user_stats", $data);
+            if(!$insert) {
+                logError($db, "Error inserting user stats : " . $db->getLastError());
+            }
         }
     }
 

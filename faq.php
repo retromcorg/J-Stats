@@ -50,7 +50,7 @@
 </div>
 <div class="card-body"> 
 <p>You can try to get their new username from NameMC, I can not easily ping to get user's name history because, <a href="https://help.minecraft.net/hc/en-us/articles/8969841895693-Username-History-API-Removal-FAQ-">fuck you Mojang!</a></p>
-<p>Or the username you're searching for legacy and has not been migrated to RetroMC's statistics system and is sadly lost.</li>
+<p>Or the username you're searching is legacy and has not been migrated to RetroMC's statistics system and is sadly lost.</li>
 </div>
 </div>
 

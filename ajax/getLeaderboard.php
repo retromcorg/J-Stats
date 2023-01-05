@@ -21,7 +21,7 @@ if($_POST) {
 <tr>
 <th></th>
 <th>User</th>
-<th>#</th>
+<th><?php echo $methods[$c] ?></th>
 </tr>
 <?php
 
@@ -39,7 +39,7 @@ foreach ($d as $row) {
 <?php
 if($c == 'playTime') {
 ?>
-<td><span data-toggle="tooltip" data-placement="right" title="<?php  echo unix($user['firstJoin']); ?>"><?php echo to_time_ago($user['firstJoin']) ?> ago</span></td>
+<td><span data-toggle="tooltip" data-placement="right" title="<?php  echo secondsToWords($row['playTime']); ?>"><?php echo secondsToWordsMini($row['playTime']) ?> hours</span></td>
 <?php
 } else {
 ?>
@@ -48,8 +48,6 @@ if($c == 'playTime') {
 }
 ?>
 </tr>
-</table>
-<tr>
 <?php
 }
 ?>

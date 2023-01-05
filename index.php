@@ -24,8 +24,6 @@
 <?php include_once("includes/header.php"); ?>
 <div class="container" style="margin-top:30px">
 
-<div class="fetchServers"></div>
-
 <div class="card bg-dark">
 <div class="card-header">
 <strong>Introduction</strong>
