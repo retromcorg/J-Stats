@@ -8,14 +8,14 @@ header('Content-type: application/json; charset=utf-8');
 $server = curlServerInfo();
 
 $final = [];
-$payload['server'] = $server['serverName'];
 if($server['onlinePlayers'] != 0) {
     $payload['players'] = [];
     foreach ($server['players'] as $player) {
         $players = [
-            $payload['players'][] = [$player['username'], getUUIDUsername($db, $player['username'])]
+            $payload['players'][] = [$player['username'], getUUIDUsername($db, $player['username']), "coords" => ["x" => $player['x'], "y" => $player['y'], "z" => $player['z'], "world" => $player['world']]]
         ];
     }
+}
 
     $db->orderby("t", "DESC");
     $pl = $db->get("server_history", 30);
@@ -29,11 +29,8 @@ if($server['onlinePlayers'] != 0) {
     }
     $payload['player_history'] = $h;
     $payload['player_date'] = $e;
-    $payload['average'] = $server['average'];
     $payload['online'] = $server['onlinePlayers'];
-
     $final[] = $payload;
-}
 
 echo json_encode($final, true);
 

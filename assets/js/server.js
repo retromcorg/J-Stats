@@ -6,15 +6,21 @@ $(document).ready(function () {
     success: function(response) {
     let result = ''; 
     response.forEach(element => {
-    $(".player").text(`${element.online} Players Online`);
+    $("#player").html(`<strong class="text-info">${element.online}</strong> players online,`);
     result += '<div class="row">';
+if(element.players) {
     element.players.forEach(e => {
-    result += `<div class="col-md-4"><img src="https://minotar.net/helm/${e[1]}/25.png" alt="${e[0]}" title="${e[0]}"><a href="player?u=${e[1]}&n=${e[0]}">${e[0]}</a></div>`
+    result += `<div class="col-md-6"><span data-toggle="tooltip" title="x: ${Math.floor(e.coords.x)}, y: ${Math.floor(e.coords.y)}, z: ${Math.floor(e.coords.z)}, world: ${e.coords.world}"><img src="https://minotar.net/helm/${e[1]}/25.png" alt="${e[0]}"></span> <a href="player?u=${e[1]}">${e[0]}</a></div>`
     })
     result += '</div>';
-    result += `<br><br>`;
+    result += `<br>`;
+	}
+	else {
+	result += '<div class="col-md-12"><p class="text-danger">No users online.</p></div>';
+	}
     $(".fetchServers").html(result);
     
+  $('[data-toggle="tooltip"]').tooltip(); 
     new Chart("myChart", {
     type: "line",
     data: {

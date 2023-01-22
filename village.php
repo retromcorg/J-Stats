@@ -28,6 +28,8 @@ $v2 = getVillageStats($db, $v['id']);
 <meta name="language" content="English">
 <meta name="title" content="J-Stats | Village <?php echo $v['name'] ?>">
 <meta name="description" content="View Village <?php echo $v['name'] ?> using J-Stats!">
+    <meta name="theme-color" content="#111111">
+    <meta content="https://j-stats.xyz/assets/img/icon.png" property="og:image" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css" />
@@ -39,6 +41,7 @@ $v2 = getVillageStats($db, $v['id']);
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
 <title>J-Stats | Village <?php echo $v['name'] ?></title>
 </head>
@@ -50,7 +53,7 @@ $v2 = getVillageStats($db, $v['id']);
 <?php
 $e = getUsernameUUID($db,$v['owner']);
 ?>
-<p>Village <?php echo $v['name'] ?>'s Information owned by <strong><a href="./player?u=<?php echo $v['owner'] ?>&n=<?php echo $e; ?>"><?php echo $e; ?></a></strong></p>
+<p>Village <?php echo $v['name'] ?>'s Information owned by <strong><a href="./player?u=<?php echo $v['owner'] ?>"><?php echo $e; ?></a></strong></p>
 <div class="row">
     <div class="col-lg-4">
     
@@ -82,7 +85,19 @@ $e = getUsernameUUID($db,$v['owner']);
     <div class="col-lg-4">
 
     <div class="card bg-dark">
-    <div class="card-header">Flags</div>
+    <div class="card-header">
+
+<div class="d-flex justify-content-between">
+
+<div class="item">
+Flags
+</div>
+<div class="item">
+(can't be set yet)
+</div>
+</div>
+</div>
+
     <div class="card-body">
     <?php
     $rule = json_decode($v2['flags'], true);
@@ -106,7 +121,7 @@ $e = getUsernameUUID($db,$v['owner']);
     </div>
     <div class="col-lg-4">
     <div class="card bg-dark">
-    <div class="card-header">Statistic</div>
+    <div class="card-header">Statistics</div>
     <div class="card-body">
     <?php
     $rule = json_decode($v2['flags'], true);
@@ -121,7 +136,7 @@ $e = getUsernameUUID($db,$v['owner']);
     </div>
 
     <div class="card-title">
-    <label class='col-6 col-md-6' style='font-weight: bold;'>Claimes</label>
+    <label class='col-6 col-md-6' style='font-weight: bold;'>Claims</label>
     <?php echo $v2['claims'] ?>
     </div>
     </div>
@@ -145,7 +160,7 @@ $e = getUsernameUUID($db,$v['owner']);
     }
     foreach ($a as $b) {
         $n = getUsernameUUID($db,$b);
-        echo '<li><a href="./player?u='. $b . '&n='. $n .'">'. $n .'</a></li>';
+        echo '<li><a href="./player?u='. $b . '">'. $n .'</a></li>';
     }
 
     ?>
@@ -170,7 +185,7 @@ $e = getUsernameUUID($db,$v['owner']);
     }
     foreach ($b as $c) {
         $n = getUsernameUUID($db,$c);
-        echo '<li><a href="./player?u='. $c . '&n='. $n .'">'. $n .'</a></li>';
+        echo '<li><a href="./player?u='. $c . '">'. $n .'</a></li>';
     }
 
     ?>

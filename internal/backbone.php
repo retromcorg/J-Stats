@@ -15,9 +15,9 @@
 
     // available groups
     $groups = [
-        "admin" => "&4Admin",
-        "moderator" => "&6Moderator",
-        "helper" => "&3Helper",
+        "admin" => "&4&lAdmin",
+        "moderator" => "&6&lModerator",
+        "helper" => "&3&lHelper",
         "wanderer" => "&8Wanderer",
         "donator" => "&cDonator",
         "mystic" => "&bMystic",
@@ -25,10 +25,15 @@
         "trusted" => "&6[&aCitizen&6]",
         "hero" => "&2Hero",
         "legend" => "&1Legend",
-        "veteran" => "&bSen&2ior",
+        "veteran" => "&aSen&1ior",
     	"donatorplusplus" => "&cDonator++",
-	    "developer" => "&c&oDeveloper"
+        "donator+" => "&cDonator+",
+        "trial" => "&aTrial Helper",
+	"undercovermod"=> "&bUndercover Mod",
+        "developer" => "&c&lDeveloper"
     ];
+
+    $staff = ["helper", "undercovermod", "trial", "developer", "moderator", "admin"];
 
     // minecraft color helper
     function minecraftColor($text) {
@@ -37,7 +42,7 @@
 
     // if a user is a staff member
     function isStaff($group) {
-        if(in_array($group, ["helper", "developer", "moderator", "admin"])) {
+        if(in_array($group, ["helper", "undercovermod", "trial", "developer", "moderator", "admin"])) {
             return true;
         }
         else {
@@ -45,8 +50,28 @@
         }
     }
 
-    // top methods
-    $methods = [
+    // leaderboard methods
+    $lb_methods = [
+        "money" => "Balance", 
+        "playerDeaths" => "Player Deaths",
+        "trustScore" => "Trust Score",
+        "playersKilled" => "Players Killed", 
+        "joinCount" => "Join Count", 
+        "metersTraveled" => "Blocks Traveled", 
+        "blocksPlaced" => "Blocks Placed", 
+        "playTime" => "Playtime", 
+        "itemsDropped" => "Items Dropped",
+        "trustLevel" => "Trust Level",
+        "creaturesKilled" => "Mobs Killed", 
+        "blocksDestroyed" => "Blocks destroyed",
+        "memberCount" => "Village Members",
+        "assistantsCount" => "Village Assistants",
+        "claims" => "Village Claims",
+        "mostChatMessages"  => "Most Messages"
+    ];
+
+    // stats methods
+    $stats_methods = [
         "money" => "Balance", 
         "playerDeaths" => "Player Deaths",
         "trustScore" => "Trust Score",
@@ -60,5 +85,4 @@
         "creaturesKilled" => "Mobs Killed", 
         "blocksDestroyed" => "Blocks destroyed"
     ];
-
 ?>

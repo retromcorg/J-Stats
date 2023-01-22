@@ -1,3 +1,9 @@
+<?php
+include_once("internal/backbone.php");
+
+$stats = json_decode(curlData("https://j-stats.xyz/api/stats"), true);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +12,8 @@
 <meta name="language" content="English">
 <meta name="title" content="J-Stats | Home Page">
 <meta name="description" content="Get Statistics and information from RetroMC using J-Stats!">
+    <meta name="theme-color" content="#111111">
+    <meta content="https://j-stats.xyz/assets/img/icon.png" property="og:image" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css" />
@@ -17,42 +25,66 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
 <title>J-Stats</title>
 </head>
 <body>
 <?php include_once("includes/header.php"); ?>
 <div class="container" style="margin-top:30px">
-
+<h2>J-Stats</h2>
+<p><strong class="text-info"><?php echo $stats['total_users']; ?></strong> users - <strong class="text-info"><?php echo $stats['total_villages'] ?></strong> villages - <strong class="text-info"><?php echo $stats['staff_users'] ?></strong> staff - <strong class="text-info"><?php echo $stats['cape_users'] ?></strong> capes</p>
 <div class="card bg-dark">
 <div class="card-header">
 <strong>Introduction</strong>
 </div>
 <div class="card-body">    
-<p>J-Stats is a website that provides information about players on <strong>RetroMC</strong>.</p>
+<p>J-Stats is a website that provides information about players on <strong>RetroMC</strong>.</p> 
 
-<p>Some of the data that this site keeps records of:</p>
+<p>Some of the features that this site provides:</p>
 <ul>
-<li>Global Leaderboard</li>
-<li>Staff Members</li>
-<li>Villages</li>
-<li>Ingame User Capes</li>
-<li>Basic User Information</li>
-<li>User Coordinates</li>
-<li>Server Player Count</li>
-<li>User Statistics</li>
+<li>Global Server Leaderboard</li>
+<li>List of Staff Members</li>
+<li>List of Villages</li>
+<li>All the Beta Evolutions Capes</li>
+<li>Server Player List and historic graph</li>
+<li>User Information Lookup:</li>
 <ul>
-<li>Player Balance</li>
-<li>Player Deaths</li>
-<li>Player Kills</li>
-<li>Mob Kills</li>
-<li>Meters Traveled</li>
-<li>Trust Score</li>
-<li>Blocks Placed</li>
-<li>Blocks Destroyed</li>
+<li>Skin/Beta Evolution cape preview</li>
+<li>Ban history and information</li>
+<li>Villages they own/member of or assistant in</li>
+<li>First Join and Last Join dates</li>
 </ul>
+<li>And More</li>
 </ul>
-<small>There's more, just I can't be bothered to list it all out.</small>
+
+
+
+</div>
+</div>
+
+
+<div class="card bg-dark" style="margin-top:30px" id="credit">
+<div class="card-header">
+<strong>How it works</strong>
+</div>
+<div class="card-body">
+<p>You can search for your username, see Beta Evolutions capes, villages and more.</p>
+
+<ul>
+    <li>Villages</li> - Updates every 30 minutes</li>
+    <li>Leaderboards</li> - Updates every 10 minutes</li>
+    <li>Players</li> - Updates when you log off of RetroMC</li>
+</ul>
+</div>
+</div>
+
+<div class="card bg-dark" style="margin-top:30px" id="credit">
+<div class="card-header">
+<strong>Credit</strong>
+</div>
+<div class="card-body">
+<p><strong>JohnyMuffin</strong> for the help also for making RetroMC, and the API's that this site relies on to get it's data.</p>
 </div>
 </div>
 

@@ -9,27 +9,23 @@
       <li class="nav-item">
         <a class="nav-link" href="./">Home</a>
       </li>  
-      <li class="nav-item">
-        <a class="nav-link" href="./faq">FAQ</a>
+	<li class="nav-item">
+        <a class="nav-link" href="./staff">Staff</a>
       </li>
+
       <li class="nav-item">
         <a class="nav-link" href="./server">Server</a>
       </li>
-
-                <!-- Dropdown -->
-                <li class="nav-item dropdown my-2 my-sm-0 ml-sm-2">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-      Information
-      </a>
-      <div class="dropdown-menu">
-      <a class="dropdown-item" href="./villages">Villages</a>
-      <a class="dropdown-item" href="./capes">Capes</a>
-      <a class="dropdown-item" href="./staff">Staff</a>
-      <a class="dropdown-item" href="./signs">Signs</a>
-      </div>
-    </li>
-      <li class="nav-item">
+            <li class="nav-item">
         <a class="nav-link" href="./leaderboard">Leaderboard</a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="./villages">Villages</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./capes">Capes</a>
       </li>
     </ul>
     <ul class="navbar-nav">

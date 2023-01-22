@@ -12,6 +12,8 @@ include_once("internal/backbone.php");
 <meta name="title" content="J-Stats | Staff">
 <meta name="description" content="View all Staff on RetroMC using J-Stats!">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111111">
+    <meta content="https://j-stats.xyz/assets/img/icon.png" property="og:image" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href="assets/style.css">
@@ -22,6 +24,7 @@ include_once("internal/backbone.php");
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
 <title>J-Stats | Staff</title>
 </head>
@@ -35,14 +38,14 @@ include_once("internal/backbone.php");
 <div class="row">
 <?php
 
-$db->where("g",["admin","developer","helper", "moderator"] ,"IN");
+$db->where("g",$staff ,"IN");
 $ca = $db->get("users");
 
 foreach($ca as $c) {
 ?>
-<div class="col-lg-4 justify-content-center">
+<div class="col-lg-3 justify-content-center">
 
-<div class="card bg-dark" style="width:65%">
+<div class="card bg-dark">
 <div class="card-header">
 <div class="d-flex justify-content-between">
 

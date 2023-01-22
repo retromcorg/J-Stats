@@ -16,7 +16,6 @@ function getLb() {
 });
 };
 
-$('[data-toggle="tooltip"]').tooltip();   
 
 
 });

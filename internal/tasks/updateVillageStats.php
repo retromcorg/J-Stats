@@ -12,7 +12,7 @@ foreach ($villages as $village) {
     $data = curlVillageInfo($village['uuid']);
 
     // update the server's player count
-    insertVillageStats($db, $data);
+    insertVillageStats($db, $village['id'], $data);
 
 }
 

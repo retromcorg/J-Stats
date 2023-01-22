@@ -31,6 +31,10 @@
         }       
     }
 
+function strip($msg) {
+	return str_replace('**', '', $msg);
+}
+
     function super_unique($array,$key)
     {
     $temp_array = [];
@@ -256,9 +260,9 @@
     }
 
     // insert village stats
-    function insertVillageStats($db, $payload) {
+    function insertVillageStats($db, $id, $payload) {
 
-        $db->where("village_id", getVillageID($db,$payload['uuid']));
+        $db->where("village_id", $id);
         $db->where("claims", $payload['claims']);
         $db->where("members", json_encode($payload['members'], true));
         $db->where("memberCount", count($payload['members']));
@@ -271,7 +275,7 @@
 
         if(!$check) {            
             $data = [
-                "village_id" => getVillageID($db,$payload['uuid']),
+                "village_id" => $id,
                 "claims" => $payload['claims'], 
                 "t" => time(),
                 "members" => json_encode($payload['members'], true),
@@ -345,9 +349,9 @@
     }
 
     // insert user into stats table
-    function insertUserStats($db, $payload) {
+    function insertUserStats($db, $id, $payload) {
         // yeah yeah yeah it works...
-        $db->where("user_id", getUserID($db, $payload['uuid']));
+        $db->where("user_id", $id);
         $db->where("playerDeaths", $payload['uuid']);
         $db->where("playerDeaths", $payload['playerDeaths']);
         $db->where("playersKilled",$payload['playersKilled']);

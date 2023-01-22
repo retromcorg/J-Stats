@@ -17,9 +17,10 @@ if($_POST) {
                 $result['assistant'][] = [$assistant, getVillageName($db, $assistant)];
             }
 
-            $db->groupby("village_id");
             $db->orderby("t", "DESC");
-            $data = $db->get("village_stats");
+            $data1 = $db->get("village_stats");
+
+	$data = super_unique($data1, 'village_id');
 
            foreach($data as $d) {
                    if(in_array($u, json_decode($d['members'], true))) {

@@ -43,7 +43,7 @@ $("#searchForm").on("submit", function(event){
           })
         }
       else {
-          window.location = `player?u=${data.uuid}&n=${data.name}`;
+          window.location = `player?u=${data.uuid}`;
       }
     }
   });

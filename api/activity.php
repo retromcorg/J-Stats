@@ -5,18 +5,17 @@ include_once("../internal/backbone.php");
 
 header('Content-type: application/json; charset=utf-8');
 
-if (!isset($_GET['uuid']) && !isset($_GET['q'])) {
+if (!isset($_GET['uuid']) && !isset($_GET['method'])) {
     echo json_encode(["error" => "no uuid/method"], true);
     die();
 }
 else {
     $u = htmlspecialchars(strip_tags($_GET['uuid']));
-    $q = htmlspecialchars(strip_tags($_GET['q']));
+    $m = htmlspecialchars(strip_tags($_GET['method']));
 
-    $methods = ["money", "playerDeaths", "trustScore", "playersKilled", "joinCount", "metersTraveled", "blocksPlaced", "playTime", "itemsDropped", "trustLevel", "creaturesKilled", "blocksDestroyed"];
 
-    if(!in_array($q,$methods)) {
-        echo json_encode($methods,true);
+    if(!array_key_exists($m,$stats_methods)) {
+        echo json_encode(["methods" => array_keys($stats_methods)],true);
         die();
     }
     else {
@@ -29,8 +28,9 @@ else {
             die();   
         }
         else {
-            $db->groupBy($q);
+            $db->groupBy($m);
             $db->where("user_id", $u2['id']);
+	    $db->orderBy("t", "ASC");
             $stats = $db->get("user_stats");
 
 
@@ -40,13 +40,18 @@ else {
             }
             else {
                 $e = [];
+		$h = [];
                 foreach($stats as $stat) {
-                    $e[] = $stat[$q];
+                    $e[] = $stat[$m];
+		    $h[] = unix($stat["t"]);
                 }
 
                 $data = [
+                    "method" => $stats_methods[$m],
                     "username" => $u2['username'],
-                    $q."_history" => $e
+		    "uuid" => $u2['uuid'],
+                    $m => $e,
+		    "timestamps" => $h
                 ];
 
                 echo json_encode($data,true);

@@ -63,7 +63,8 @@ $(document).ready(function () {
     success: function(response) {
     if(response.length != 0) {
     $(".villages").show();
-    if(typeof response.owner != 'undefined') {
+
+    if(typeof response.owner != 'undefined' && response.owner.length != 0) {
     let o = [];
     response.owner.forEach(l => {
     o.push(`<a href="village?u=${l[0]}">${l[1]}</a>`);
@@ -71,7 +72,8 @@ $(document).ready(function () {
     $("#owned").html(o.join(', '));
     $(".own").show();
     }
-    if(typeof response.assistant != 'undefined') {
+
+    if(typeof response.assistant != 'undefined' && response.assistant.length != 0) {
     let a = [];
     response.assistant.forEach(k => {
     a.push(`<a href="village?u=${k[0]}">${k[1]}</a>`);
@@ -79,7 +81,8 @@ $(document).ready(function () {
     $("#assistant").html(a.join(", "));
     $(".asst").show();
     }
-    if(typeof response.member != 'undefined') {
+
+    if(typeof response.member != 'undefined' && response.member.length != 0) {
     let a = [];
     response.member.forEach(k => {
     a.push(`<a href="village?u=${k[0]}">${k[1]}</a>`);
@@ -103,8 +106,9 @@ $(document).ready(function () {
     if(response.total != 0) {
         $(".bans").show();
         if(response.isBanned) {
-            $('[data-toggle="banned"]').tooltip();   
-            $(".banned").prop("id", "is_banned");
+            $(".banned").prop({"id": "is_banned", "title":"This user has this color because they have been banned from the server."});
+            $(".banned").attr({"data-toggle": "banned", "data-placement": "left"});
+            $('[data-toggle="banned"]').tooltip();
         }
         
         $(".modal-title").text("Bans");

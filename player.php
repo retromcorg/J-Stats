@@ -3,10 +3,10 @@
 include_once("internal/backbone.php");
 
 $u = htmlspecialchars(strip_tags($_GET['u']));
-$n = htmlspecialchars(strip_tags($_GET['n']));
+$n = getUsernameUUID($db,$u);
 
 // check if get parameters is met 
-if(!isset($u) || !isset($n)) {
+if(!isset($u)) {
 header("Location: ./?msg=0");
 }
 else {
@@ -26,8 +26,10 @@ header("Location: ./?msg=1");
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="language" content="English">
 <meta name="title" content="J-Stats | <?php echo $n ?>">
-<meta name="description" content="<?php echo $n ?>'s Profile on RetroMC using J-Stats!">
+<meta name="description" content="View <?php echo $n ?>'s Profile on RetroMC using J-Stats!">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111111">
+    <meta content="https://crafatar.com/avatars/<?php echo $user['uuid'] ?>?size=128&overlay" property="og:image" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href="assets/style.css">
@@ -38,6 +40,7 @@ header("Location: ./?msg=1");
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
 <title>J-Stats | <?php echo $n ?></title>
 </head>
@@ -51,29 +54,17 @@ header("Location: ./?msg=1");
 <h2>
 
 <?php
-// only cool people get rainbow colors
-if($user['uuid'] == '3e613ca1-2636-4bd4-bb0b-d47086269030' || $user['uuid'] == 'db7db941-6923-4855-a879-1ae655c16122'|| isStaff(group($user['groups']))) {
+if(isStaff(group($user['groups']))) {
 ?>
-<span data-toggle="tooltip" data-placement="left" title="This user has a rainbow name because they're either a staff member, or someone that helped with the site."  class="rainbow rainbow_text_animated"><?php echo $n ?> </span>
+<span data-toggle="tooltip" data-placement="left" title="This user has a rainbow name because they're a staff member."  class="rainbow rainbow_text_animated"><?php echo $n ?> </span>
 <?php
 }
 else {
-echo '<span class="banned" data-toggle="banned" data-placement="left" title="This user has this color because they have been banned from the server.">' . $n . '</span>';
+echo '<span class="banned">' . $n . '</span>';
 } ?>
 <span id="status" class="status-result"></span></h2>
 </div>
 <div class="item">
-<?php
-// only cool people get their github listed
-if($user['uuid'] == '3e613ca1-2636-4bd4-bb0b-d47086269030' || $user['uuid'] == 'de552446-fd94-49a4-9dfc-ca2c515aa334') {
-echo '<h2><a href="https://github.com/codenamesui" data-toggle="tooltip" data-placement="left" title="codenamesui" class="text-danger"><span class="fa fa-github"></span></a></h2>';
-}
-
-elseif($user['uuid'] == '2cfc6452-a6b4-4c49-982e-492eaa3a14ec') {
-echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placement="left" title="RhysB" class="text-danger"><span class="fa fa-github"></span></a></h2>';
-}
-?>
-
 <input type="hidden" id="q_username" name="username" value="<?php echo $n; ?>">
 <input type="hidden" id="q_uuid" value="<?php echo $u;?>">
 
@@ -111,7 +102,7 @@ echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placemen
 </div>
 
 <div class="card-title">
-<label class='col-6 col-md-6' style='font-weight: bold;'>Money</label>
+<label class='col-6 col-md-6' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's money activity"  href="./activity?u=<?php echo $u; ?>&a=money">Money</a></label>
 <?php echo floor($user['money']) ?>
 </div>
 
@@ -143,7 +134,7 @@ echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placemen
 <strong>Village Info</strong>
 </div>
 <div class="card-body">
-<div class="card-title own"style="display: none;">
+<div class="card-title own" style="display: none;">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Owns</label>
 <span id="owned"><span>
 </div>
@@ -179,7 +170,7 @@ echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placemen
 </div>
 
 <div class="card-title">
-<label class='col-6 col-md-8' style='font-weight: bold;'>Mobs killed</label>
+<label class='col-6 col-md-8' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's Mob kill activity"  href="./activity?u=<?php echo $u; ?>&a=creaturesKilled">Mob Kills</a></label>
 <?php  echo $user['creaturesKilled']; ?>
 </div>
 
@@ -189,7 +180,7 @@ echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placemen
 </div>
 
 <div class="card-title">
-<label class='col-6 col-md-8' style='font-weight: bold;'>Blocks Traveled</label>
+<label class='col-6 col-md-8' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's Block Travel activity"  href="./activity?u=<?php echo $u; ?>&a=metersTraveled">Blocks Traveled</a></label>
 <?php  echo $user['metersTraveled']; ?>
 </div>
 
@@ -199,12 +190,12 @@ echo '<h2><a href="https://github.com/RhysB" data-toggle="tooltip" data-placemen
 </div>
 
 <div class="card-title">
-<label class='col-6 col-md-8' style='font-weight: bold;'>Blocks broken</label>
+<label class='col-6 col-md-8' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's break block activity"  href="./activity?u=<?php echo $u; ?>&a=blocksDestroyed">Blocks Broken</a></label>
 <?php  echo $user['blocksDestroyed']; ?>
 </div>
 
 <div class="card-title">
-<label class='col-6 col-md-8' style='font-weight: bold;'>Items Dropped</label>
+<label class='col-6 col-md-8' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's item drop activity"  href="./activity?u=<?php echo $u; ?>&a=itemsDropped">Items Dropped</a></label>
 <?php  echo $user['itemsDropped']; ?>
 </div>
 

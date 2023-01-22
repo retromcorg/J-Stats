@@ -22,10 +22,13 @@ foreach ($server['players'] as $player) {
     if(!$check) {
 
         // only try this if the player is not in the 'users' table
-        $data = curlPlayerInfo(userUUID($player['username'])['uuid']);
+	
+	$uuid = userUUID($player['username'])['uuid'];
+	if($uuid) {
+        $data = curlPlayerInfo($uuid);
         $data["username"] = $player['username'];
-    
         insertUser($db, $data);    
+	}
     }
     else {
         // step 4 insert the player coords into the 'user_coodinate_history' table 
