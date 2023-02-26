@@ -9,7 +9,6 @@
     include_once(dirname(__FILE__) . '/funcs.php');
     include_once(dirname(__FILE__) . '/db.php');
     include_once(dirname(__FILE__) . '/MinecraftColors.php');
-    include_once(dirname(__FILE__) . '/Zebra_Pagination.php');
 
     use \Spirit55555\Minecraft\MinecraftColors;
 
@@ -29,7 +28,7 @@
     	"donatorplusplus" => "&cDonator++",
         "donator+" => "&cDonator+",
         "trial" => "&aTrial Helper",
-	"undercovermod"=> "&bUndercover Mod",
+        "undercovermod"=> "&bUndercover Mod",
         "developer" => "&c&lDeveloper"
     ];
 

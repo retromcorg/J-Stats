@@ -47,7 +47,7 @@ foreach($ca as $c) {
 <div class="col-md-3">
 
 <div class="card bg-dark">
-<div class="card-header"><a href="./player?u=<?php echo $c['uuid'] ?>&n=<?php echo $c['username'] ?>"><?php echo $c['username'] ?></a></div>
+<div class="card-header"><a href="./player?u=<?php echo $c['uuid'] ?>"><?php echo $c['username'] ?></a></div>
 
 <img class="card-img-bottom" src="<?php echo $c['cape'] ?>" style="image-rendering: pixelated;" alt="<?php echo $c['username'] ?>'s Cape" style="width:100%">
 </div>

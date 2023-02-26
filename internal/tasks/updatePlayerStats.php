@@ -22,7 +22,6 @@ foreach ($server['players'] as $player) {
     if(!$check) {
 
         // only try this if the player is not in the 'users' table
-	
 	$uuid = userUUID($player['username'])['uuid'];
 	if($uuid) {
         $data = curlPlayerInfo($uuid);
@@ -31,8 +30,12 @@ foreach ($server['players'] as $player) {
 	}
     }
     else {
+	$db->where("id",$check['id']);
+	$e  = $db->update("users", ["lastJoin" => time()]);
         // step 4 insert the player coords into the 'user_coodinate_history' table 
+	if($e) {
         userCoordinates($db, $player);
+	}
     }        
 }
 }

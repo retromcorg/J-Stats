@@ -33,7 +33,8 @@ $stats = json_decode(curlData("https://j-stats.xyz/api/stats"), true);
 <?php include_once("includes/header.php"); ?>
 <div class="container" style="margin-top:30px">
 <h2>J-Stats</h2>
-<p><strong class="text-info"><?php echo $stats['total_users']; ?></strong> users - <strong class="text-info"><?php echo $stats['total_villages'] ?></strong> villages - <strong class="text-info"><?php echo $stats['staff_users'] ?></strong> staff - <strong class="text-info"><?php echo $stats['cape_users'] ?></strong> capes</p>
+<p><strong class="text-info"><?php echo $stats['total_users']; ?></strong> users, <strong class="text-info"><?php echo $stats['total_villages'] ?></strong> villages, <strong class="text-info"><?php echo $stats['staff_users'] ?></strong> staff, <strong class="text-info"><?php echo $stats['cape_users'] ?></strong> capes</p>
+
 <div class="card bg-dark">
 <div class="card-header">
 <strong>Introduction</strong>
@@ -73,7 +74,7 @@ $stats = json_decode(curlData("https://j-stats.xyz/api/stats"), true);
 
 <ul>
     <li>Villages</li> - Updates every 30 minutes</li>
-    <li>Leaderboards</li> - Updates every 10 minutes</li>
+    <li>Leaderboards</li> -  Updates every 10 minutes</li>
     <li>Players</li> - Updates when you log off of RetroMC</li>
 </ul>
 </div>

@@ -50,7 +50,7 @@ foreach($ca as $c) {
 <div class="d-flex justify-content-between">
 
 <div class="item">
-<a href="./player?u=<?php echo $c['uuid'] ?>&n=<?php echo $c['username'] ?>"><?php echo $c['username'] ?></a>
+<a href="./player?u=<?php echo $c['uuid'] ?>"><?php echo $c['username'] ?></a>
 </div>
 <div class="item">
 <?php echo minecraftColor($groups[$c['g']]); ?>

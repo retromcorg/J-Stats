@@ -2,15 +2,6 @@
 
 include_once("internal/backbone.php");
 
-$servers = curlServerInfo($db);
-
-$stats = json_decode(curlData("https://j-stats.xyz/api/server"), true);
-
-
-foreach ($servers as $server) {
-$info = $server;
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +33,9 @@ $info = $server;
 <?php include_once("includes/header.php"); ?>
 <div class="container" style="margin-top:30px">
 <h2>Server</h2>
-<p><span id="player"></span> <strong class="text-info"><?php echo $stats['daily_total'] ?></strong> peek today, <strong class="text-info"><?php echo $stats['peek_total'] ?></strong> all time peek</p>
+<div class="sstats">
+<p><span id="player"></span> <span id="today"></span> <span id="total"></span></p>
+</div>
 <div class="card bg-dark">
 <div class="card-header">Player List</div>
 <div class="card-body players"><div class="fetchServers"></div>

@@ -46,7 +46,18 @@ foreach($lb_methods as $method => $label) {
 </select>
 <br>
 
-<div class="leaderboard"></div>
+<div class="table-responsive-lg lb">
+        <table class="table table-dark table-borderless table-sm">
+            <thead><tr>
+                <th class="text-center">#</th>
+                <th id="t"></th>
+                <th id="n"></th>
+            </tr>
+</thead>
+<tbody class="leaderboard"></tbody>
+</table>
+</div>
+
 </div>
 
 <script src="assets/js/leaderboard.js"></script>

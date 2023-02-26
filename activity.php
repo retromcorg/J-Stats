@@ -12,7 +12,7 @@ else {
     $u = htmlspecialchars(strip_tags($_GET['u']));
     $m = htmlspecialchars(strip_tags($_GET['a']));
 
-    $stat = json_decode(curlData("https://j-stats.xyz/api/activity?uuid=". $u . "&method=" . $m), true);
+    $stat = json_decode(curlData("https://j-stats.xyz/api/v2/activity?user=". $u . "&activity=" . $m), true);
 
 
 ?>

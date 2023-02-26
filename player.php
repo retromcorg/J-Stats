@@ -3,7 +3,6 @@
 include_once("internal/backbone.php");
 
 $u = htmlspecialchars(strip_tags($_GET['u']));
-$n = getUsernameUUID($db,$u);
 
 // check if get parameters is met 
 if(!isset($u)) {
@@ -11,12 +10,14 @@ header("Location: ./?msg=0");
 }
 else {
 
-$user = curlPlayerInfo($u);
+$u2 = searchUser($db, $u);
 
-if(!$user) {
+if(!$u2) {
 header("Location: ./?msg=1");
 }
-}
+
+else {
+  $user = fetchUser($db, $u2);
 
 ?>
 <!DOCTYPE html>
@@ -25,8 +26,8 @@ header("Location: ./?msg=1");
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="language" content="English">
-<meta name="title" content="J-Stats | <?php echo $n ?>">
-<meta name="description" content="View <?php echo $n ?>'s Profile on RetroMC using J-Stats!">
+<meta name="title" content="J-Stats | <?php echo $user['username'] ?>">
+<meta name="description" content="View <?php echo $user['username'] ?>'s Profile on RetroMC using J-Stats!">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#111111">
     <meta content="https://crafatar.com/avatars/<?php echo $user['uuid'] ?>?size=128&overlay" property="og:image" />
@@ -34,7 +35,7 @@ header("Location: ./?msg=1");
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href="assets/style.css">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://j-stats.xyz/player?u=<?php echo $u ?>&n=<?php echo $n ?>">
+<link rel="canonical" href="https://j-stats.xyz/player?u=<?php echo $user['username'] ?>">
 <link rel="icon" href="https://crafatar.com/avatars/<?php echo $user['uuid'] ?>?size=128&overlay">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -42,7 +43,8 @@ header("Location: ./?msg=1");
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.10/dist/clipboard.min.js"></script>
-<title>J-Stats | <?php echo $n ?></title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<title>J-Stats | <?php echo $user['username'] ?></title>
 </head>
 <body>
 <?php include_once("includes/header.php"); ?>
@@ -54,19 +56,14 @@ header("Location: ./?msg=1");
 <h2>
 
 <?php
-if(isStaff(group($user['groups']))) {
+echo '<span class="banned">' . $user['username'] . '</span>';
 ?>
-<span data-toggle="tooltip" data-placement="left" title="This user has a rainbow name because they're a staff member."  class="rainbow rainbow_text_animated"><?php echo $n ?> </span>
-<?php
-}
-else {
-echo '<span class="banned">' . $n . '</span>';
-} ?>
 <span id="status" class="status-result"></span></h2>
 </div>
 <div class="item">
-<input type="hidden" id="q_username" name="username" value="<?php echo $n; ?>">
-<input type="hidden" id="q_uuid" value="<?php echo $u;?>">
+<input type="hidden" id="q_username" name="username" value="<?php echo $user['username']; ?>">
+<input type="hidden" id="q_cape" name="cape" value="<?php echo $user['cape']; ?>">
+<input type="hidden" id="q_uuid" value="<?php echo $user['uuid'];?>">
 
 </div>
 </div>
@@ -84,7 +81,8 @@ echo '<span class="banned">' . $n . '</span>';
 
 <div class="row">
 
-<div class="col-lg-4">
+<div class="col-lg-4" id="second">
+
 <div class="card bg-dark">
 <div class="card-header">
 <strong>Information</strong>
@@ -93,7 +91,7 @@ echo '<span class="banned">' . $n . '</span>';
 
 <div class="card-title">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Rank</label>
-<?php echo minecraftColor($groups[group($user['groups'])]); ?>
+<?php echo minecraftColor($groups[$user['group']]); ?>
 </div>
 
 <div class="card-title">
@@ -148,16 +146,19 @@ echo '<span class="banned">' . $n . '</span>';
 </div>
 </div>
 </div>
-
-</div>
-
-<div class="col-lg-4 justify-content-center">
-<canvas id="skin_container"></canvas>
 <br>
 
 </div>
 
-<div class="col-lg-4">
+<div class="col-lg-4 justify-content-center" id="first">
+<center>
+<canvas id="skin_container"></canvas>
+</center>
+<br>
+
+</div>
+
+<div class="col-lg-4" id="third">
 
 <div class="card bg-dark">
 <div class="card-header">
@@ -257,3 +258,10 @@ echo '<span class="banned">' . $n . '</span>';
 <?php include_once("includes/footer.php"); ?>
 </body>
 </html>
+<?php
+}
+
+}
+
+
+?>

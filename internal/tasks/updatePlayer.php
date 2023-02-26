@@ -1,9 +1,8 @@
 <?php
 
 include_once('../backbone.php');
-
+$db->where("lastJoin > UNIX_TIMESTAMP(NOW() - INTERVAL 1 DAY)");
 // step 1 get the users from the 'users' table, filter by 24h
-$db->where("lastJoin > UNIX_TIMESTAMP(NOW() - INTERVAL 4 DAY)");
 $users = $db->get("users");
 
 foreach($users as $user) {    

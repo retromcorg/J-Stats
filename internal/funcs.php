@@ -258,6 +258,43 @@ function strip($msg) {
             logError($db, "Error inserting villages : " . $db->getLastError());
         }
     }
+    
+
+    function fetchUser($db, $user) {
+        $db->where("user_id", $user['id']);
+        $db->groupBy("user_id");
+
+        $stats = $db->getOne("user_stats");
+
+        if(!$stats) {
+            return false;
+        }
+        else {
+            $data = [
+                "username" => $user['username'],
+                "uuid" => $user['uuid'],
+                "lastJoin" => $user['lastJoin'],
+                "cape" => $user['cape'],
+                "firstJoin" => $user['firstJoin'],
+                "group" => $user['g'],
+                "money" => $stats['money'],
+                "playerDeaths" => $stats['playerDeaths'],
+                "playersKilled" => $stats['playersKilled'],
+                "joinCount" => $stats['joinCount'],
+                "metersTraveled" => $stats['metersTraveled'],
+                "trustScore" => $stats['trustScore'],
+                "blocksPlaced"  => $stats['blocksPlaced'],
+                "playTime" => $stats['playTime'],
+                "itemsDropped" => $stats['itemsDropped'],
+                "trustLevel" => $stats['trustLevel'],
+                "creaturesKilled" => $stats['creaturesKilled'],
+                "blocksDestroyed" => $stats['blocksDestroyed']
+            ];
+
+            return $data;
+
+        }
+    }
 
     // insert village stats
     function insertVillageStats($db, $id, $payload) {
@@ -311,6 +348,33 @@ function strip($msg) {
             logError($db, "Error inserting server history : " . $db->getLastError());
         }
     }
+
+
+    function searchUser($db, $q) {
+
+
+        if(preg_match("/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)\})$/i", $q)) {
+        $db->where("uuid", $q);
+        }
+        else {
+        $db->where("username", $q, "REGEXP");
+        }
+
+        return $db->getOne("users");
+
+        }
+
+    function searchVillage($db, $q) {
+        if(preg_match("/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)\})$/i", $q)) {
+            $db->where("uuid", $q);
+        }
+        else {
+        $db->where("name", $q, "REGEXP");
+        }
+
+        return $db->getOne("villages");
+
+        }
 
     // insert users
     function insertUser($db, $payload) {

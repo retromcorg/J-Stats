@@ -28,16 +28,16 @@ $("#searchForm").on("submit", function(event){
     event.preventDefault();
     var query = $("#search").val();
     $.ajax({
-      url:"ajax/getUser",
-        data: {search: query},
-        method: "POST",
+      url:"api/getUser",
+        data: {user: query},
+        method: "GET",
         success: function(data){
 
-        if(data.type != 'success') {
+        if(data.status != 'success') {
         Swal.fire({
-          title: data.title,
-          icon: data.type,
-          text: data.message,
+          title: "Uh oh!",
+          icon: data.status,
+          text: data.msg,
           allowOutsideClick: false,
           allowEscapeKey: false
           })
@@ -48,3 +48,5 @@ $("#searchForm").on("submit", function(event){
     }
   });
 });
+
+
