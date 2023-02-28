@@ -35,12 +35,22 @@ $stats = json_decode(curlData("https://j-stats.xyz/api/stats"), true);
 <h2>J-Stats</h2>
 <p><strong class="text-info"><?php echo $stats['total_users']; ?></strong> users, <strong class="text-info"><?php echo $stats['total_villages'] ?></strong> villages, <strong class="text-info"><?php echo $stats['staff_users'] ?></strong> staff, <strong class="text-info"><?php echo $stats['cape_users'] ?></strong> capes</p>
 
+
+
+
+<div class="row">
+
+<div class="col-lg-6">
+
+
 <div class="card bg-dark">
 <div class="card-header">
 <strong>Introduction</strong>
 </div>
 <div class="card-body">    
 <p>J-Stats is a website that provides information about players on <strong>RetroMC</strong>.</p> 
+
+<hr>
 
 <p>Some of the features that this site provides:</p>
 <ul>
@@ -59,33 +69,100 @@ $stats = json_decode(curlData("https://j-stats.xyz/api/stats"), true);
 <li>And More</li>
 </ul>
 
+<hr>
 
-
+<p><strong>Credit</strong>: JohnyMuffin for the help, making RetroMC, and the APIs that this site relies on to get it's data.</p>
 </div>
 </div>
 
+<br>
+</div>
 
-<div class="card bg-dark" style="margin-top:30px" id="credit">
+
+<div class="col-lg-6">
+
+
+<div class="card bg-dark" id="credit">
 <div class="card-header">
-<strong>How it works</strong>
+<strong>Recently Added Users</strong>
 </div>
+
 <div class="card-body">
-<p>You can search for your username, see Beta Evolutions capes, villages and more.</p>
 
-<ul>
-    <li>Villages</li> - Updates every 30 minutes</li>
-    <li>Leaderboards</li> -  Updates every 10 minutes</li>
-    <li>Players</li> - Updates when you log off of RetroMC</li>
-</ul>
+
+<table class="table table-borderless table-sm">
+<thead>
+<tr>
+<th>#</th>
+<th>User</th>
+<th>🕓</th>
+</tr>
+</thead>
+<tbody>
+
+<?php
+
+
+$db->orderby("firstJoin", "DESC");
+$added = $db->get("users", 5);
+
+foreach($added as $k => $a) {
+?>
+<tr>
+    <td><?php echo $k+1; ?></td>
+    <td><?php echo $a['username']; ?></td>
+    <td><span data-toggle="tooltip" data-placement="right" title="<?php  echo unix($a['firstJoin']); ?>"><?php echo to_time_ago($a['firstJoin']) ?> ago</span></td>
+
+</tr><?php
+}
+?>
+</tbody>
+</table>
 </div>
 </div>
 
-<div class="card bg-dark" style="margin-top:30px" id="credit">
+<br>
+
+<div class="card bg-dark" id="credit">
 <div class="card-header">
-<strong>Credit</strong>
+<strong>Recently Updated Users</strong>
 </div>
+
 <div class="card-body">
-<p><strong>JohnyMuffin</strong> for the help also for making RetroMC, and the API's that this site relies on to get it's data.</p>
+
+<table class="table table-borderless table-sm">
+<thead>
+<tr>
+<th>#</th>
+<th>User</th>
+<th>🕓</th>
+</tr>
+</thead>
+<tbody>
+
+<?php
+
+
+$db->orderby("lastJoin", "DESC");
+$updated = $db->get("users", 5);
+
+foreach($updated as $k => $u) {
+?>
+<tr>
+    <td><?php echo $k+1; ?></td>
+    <td><?php echo $u['username']; ?></td>
+    <td><span data-toggle="tooltip" data-placement="right" title="<?php  echo unix($u['lastJoin']); ?>"><?php echo to_time_ago($u['lastJoin']) ?> ago</span></td>
+
+</tr><?php
+}
+?>
+</tbody>
+</table>
+
+</div>
+</div>
+
+
 </div>
 </div>
 
