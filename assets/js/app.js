@@ -16,6 +16,8 @@ $('.copybtn').tooltip({
   }
   
 
+  $('[data-toggle="tooltip"]').tooltip();   
+
 var clipboard = new ClipboardJS('.copybtn');
 
 clipboard.on('success', function(e) {

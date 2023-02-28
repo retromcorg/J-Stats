@@ -18,8 +18,6 @@ skinViewer.animation.speed = 0.5;
 });
 
 
-$('[data-toggle="tooltip"]').tooltip();   
-
 $.ajax({
 url: 'ajax/isUserOnline',
 type: 'POST',
