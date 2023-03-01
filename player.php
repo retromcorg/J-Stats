@@ -132,15 +132,15 @@ echo '<span class="banned">' . $user['username'] . '</span>';
 <strong>Village Info</strong>
 </div>
 <div class="card-body">
-<div class="card-title own" style="display: none;">
+<div class="card-title owns">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Owns</label>
 <span id="owned"><span>
 </div>
-<div class="card-title mem" style="display: none;">
+<div class="card-title mem">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Member In</label>
 <span id="member"><span>
 </div>
-<div class="card-title asst" style="display: none;">
+<div class="card-title asst">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Assistant In</label>
 <span id="assistant"><span>
 </div>

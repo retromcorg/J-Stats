@@ -24,9 +24,9 @@ $updated = $db->get("users", 5);
 
 foreach($updated as $k => $u) {
     $builder['recently_updated'][] = [
-        "username" => $a['username'],
-        "uuid" => $a['uuid'],
-        "date" => $a['lastJoin']
+        "username" => $u['username'],
+        "uuid" => $u['uuid'],
+        "date" => $u['lastJoin']
     ];
 }
 

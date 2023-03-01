@@ -175,6 +175,18 @@ text-decoration-color: #dc3545;
 text-decoration-thickness: 5px !important;
 }
 
+.owns {
+    display: none;
+}
+
+.asst {
+    display: none;
+}
+
+.mem { 
+    display: none;
+}
+
 .staff-card {
 display: none;
 }

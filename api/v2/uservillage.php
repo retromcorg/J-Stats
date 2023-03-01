@@ -29,19 +29,19 @@ else {
 
         if($village['found']) {
 
-            $builder['status'] = "success";
             $builder['username'] = $user['username'];
             $builder['uuid'] = $user['uuid'];
+            $builder['status'] = "success";
 
 
             foreach($village['villages']['owner'] as $owner) {
-                $builder['owner'][] = [
+                $builder['data']['owner'][] = [
                     "village" => getVillageName($db, $owner), 
                     "village_uuid" => $owner
                 ];
             }
             foreach($village['villages']['assistant'] as $assistant) {
-                $builder['assistant'][] = [
+                $builder['data']['assistant'][] = [
                     "village" => getVillageName($db, $assistant),
                     "village_uuid" => $assistant
                 ];
@@ -54,13 +54,33 @@ else {
 
            foreach($data as $d) {
                    if(in_array($u, json_decode($d['members'], true))) {
-                        $builder['member'][] = 
+                        $builder['data']['member'][] = 
                         [
                             "village" => getVillageNameID($db, $d['village_id']),
                             "village_uuid" => getVillageUUID($db, $d['village_id'])
                         ];
                    }
             }
+
+            // to fix the shitty javascript handler in bot and ajax
+            if(!isset($builder['data'])) {
+                $builder = [
+                    "status" => "error",
+                    "msg" => "user does not have village data",
+                    "code" => 5
+                ];
+            }
+            else {
+                if(!isset($builder['data']['member'])) {
+                    $builder['data']['member'] = 0;
+                }
+                if(!isset($builder['data']['assistant'])) {
+                    $builder['data']['assistant'] = 0;
+                }
+                if(!isset($builder['data']['owner'])) {
+                    $builder['data']['owner'] = 0;
+                }
+            }        
 
             echo json_encode($builder, true);
         }
