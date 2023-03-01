@@ -60,8 +60,8 @@ foreach($lb_methods as $method => $label) {
 
 </div>
 
-<script src="assets/js/leaderboard.js"></script>
 <script src="assets/js/app.js"></script>
+<script>document.getElementsByName("cat")[0].addEventListener('change', getLb);</script>
 <?php include_once("includes/footer.php"); ?>
 </body>
 </html>

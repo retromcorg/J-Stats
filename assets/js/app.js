@@ -71,9 +71,6 @@ skinViewer.animation = new skinview3d.WalkingAnimation();
 skinViewer.animation.headBobbing = false;
 skinViewer.animation.speed = 0.5;
 
-};
-
-
 $.ajax({
 url: 'ajax/isUserOnline',
 type: 'POST',
@@ -136,7 +133,6 @@ $(".villages").show();
 
 });
 
-
 $.ajax({
 url: 'ajax/isUserBanned',
 type: 'POST',
@@ -180,6 +176,8 @@ $(".ban-list").show();
 }
 });
 
+}
+
 function loadServer() {
 $.ajax({
 url: 'api/v2/server',
@@ -189,7 +187,6 @@ success: function(response) {
 
 
 let result = ''; 
-
 
 $("#player").html(`<strong class="text-info">${response.online}</strong> online,`);
 $("#today").html(`<strong class="text-info">${response.daily_total}</strong> today's peak,`);
@@ -294,7 +291,7 @@ $(".lb").show();
 
 }
 });
-};
+}
 
 function stringSentenceCase(str) {
 return str.replace(/\.\s+([a-z])[^\.]|^(\s*[a-z])[^\.]/g, s => s.replace(/([a-z])/,s => s.toUpperCase()))

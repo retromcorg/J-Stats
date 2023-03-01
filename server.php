@@ -48,8 +48,8 @@ include_once("internal/backbone.php");
 </div>
 </div>
 
-<script src="assets/js/server.js"></script>
 <script src="assets/js/app.js"></script>
+<script>loadServer()</script>
 <?php include_once("includes/footer.php"); ?>
 </body>
 </html>
