@@ -253,8 +253,8 @@ echo '<span class="banned">' . $user['username'] . '</span>';
 </div>
 
 <script src="assets/js/skinview3d.bundle.js"></script>
-<script src="assets/js/player.js"></script>
 <script src="assets/js/app.js"></script>
+<script>loadPlayer()</script>
 <?php include_once("includes/footer.php"); ?>
 </body>
 </html>
