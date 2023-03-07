@@ -237,6 +237,7 @@ function strip($msg) {
             "y" => $payload['y'], 
             "z" => $payload['z'], 
             "world" => $payload['world'], 
+            "uuid" => getUUIDUsername($db, $payload['username']),
             "user_id" => getUsernameID($db, $payload['username']), 
             "t" => time()
         ];
@@ -261,8 +262,8 @@ function strip($msg) {
     
 
     function fetchUser($db, $user) {
-        $db->where("user_id", $user['id']);
-        $db->groupBy("user_id");
+        $db->orderby("t", "DESC");
+        $db->where("uuid", $user['uuid']);
 
         $stats = $db->getOne("user_stats");
 
@@ -274,6 +275,7 @@ function strip($msg) {
                 "username" => $user['username'],
                 "uuid" => $user['uuid'],
                 "lastJoin" => $user['lastJoin'],
+                "lastUpdated" => (int)$stats['t'],
                 "cape" => $user['cape'],
                 "firstJoin" => $user['firstJoin'],
                 "group" => $user['g'],
@@ -416,7 +418,7 @@ function strip($msg) {
     function insertUserStats($db, $id, $payload) {
         // yeah yeah yeah it works...
         $db->where("user_id", $id);
-        $db->where("playerDeaths", $payload['uuid']);
+        $db->where("uuid", $payload['uuid']);
         $db->where("playerDeaths", $payload['playerDeaths']);
         $db->where("playersKilled",$payload['playersKilled']);
         $db->where("joinCount", $payload['joinCount']);
@@ -427,7 +429,7 @@ function strip($msg) {
         $db->where("blocksPlaced",$payload['blocksPlaced']);
         $db->where("itemsDropped", $payload['itemsDropped']);
         $db->where("blockDetailsDestroyed", json_encode($payload['blockDetailsDestroyed'], true));
-        $db->where( "trustLevel", $payload['trustLevel']);
+        $db->where("trustLevel", $payload['trustLevel']);
         $db->where("creaturesKilled",$payload['creaturesKilled']);
         $db->where("money", $payload["money"]);
         $db->where("blocksDestroyed", $payload['blocksDestroyed']);
@@ -437,6 +439,7 @@ function strip($msg) {
         if(!$check) {
             $data = [
                 "user_id" => getUserID($db, $payload['uuid']),
+                "uuid" => $payload['uuid'],
                 "playerDeaths" => $payload['playerDeaths'],
                 "playersKilled" => $payload['playersKilled'],
                 "joinCount" => $payload['joinCount'],
