@@ -13,6 +13,9 @@
 ## Check for multiple UUIDS then give newest username
 0 0 * * * cd /var/www/j-stats/internal/tasks && php7.4 updateUser.php
 
+## Check for any new bans
+0 */6 * * * cd /var/www/j-stats/internal/tasks && php7.4 updateUserBans.php
+
 ## Parse the Discord Chat logger
 */1 * * * * cd /var/www/j-stats/internal/tasks && php7.4 updateUserChat.php
 ```

@@ -237,7 +237,7 @@ function strip($msg) {
             "y" => $payload['y'], 
             "z" => $payload['z'], 
             "world" => $payload['world'], 
-            "uuid" => getUUIDUsername($db, $payload['username']),
+	    "uuid" => getUUIDUsername($db, $payload['username']),
             "user_id" => getUsernameID($db, $payload['username']), 
             "t" => time()
         ];
@@ -275,7 +275,6 @@ function strip($msg) {
                 "username" => $user['username'],
                 "uuid" => $user['uuid'],
                 "lastJoin" => $user['lastJoin'],
-                "lastUpdated" => (int)$stats['t'],
                 "cape" => $user['cape'],
                 "firstJoin" => $user['firstJoin'],
                 "group" => $user['g'],
@@ -353,13 +352,15 @@ function strip($msg) {
 
 
     function searchUser($db, $q) {
-
+	$db->orderby("lastJoin", "DESC");
 
         if(preg_match("/^(\{)?[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}(?(1)\})$/i", $q)) {
         $db->where("uuid", $q);
         }
         else {
-        $db->where("username", $q, "REGEXP");
+
+        $db->where("username", $q);
+
         }
 
         return $db->getOne("users");
@@ -371,7 +372,7 @@ function strip($msg) {
             $db->where("uuid", $q);
         }
         else {
-        $db->where("name", $q, "REGEXP");
+        $db->where("name", $q);
         }
 
         return $db->getOne("villages");
@@ -429,7 +430,7 @@ function strip($msg) {
         $db->where("blocksPlaced",$payload['blocksPlaced']);
         $db->where("itemsDropped", $payload['itemsDropped']);
         $db->where("blockDetailsDestroyed", json_encode($payload['blockDetailsDestroyed'], true));
-        $db->where("trustLevel", $payload['trustLevel']);
+        $db->where( "trustLevel", $payload['trustLevel']);
         $db->where("creaturesKilled",$payload['creaturesKilled']);
         $db->where("money", $payload["money"]);
         $db->where("blocksDestroyed", $payload['blocksDestroyed']);
@@ -439,7 +440,7 @@ function strip($msg) {
         if(!$check) {
             $data = [
                 "user_id" => getUserID($db, $payload['uuid']),
-                "uuid" => $payload['uuid'],
+		"uuid" => $payload['uuid'],
                 "playerDeaths" => $payload['playerDeaths'],
                 "playersKilled" => $payload['playersKilled'],
                 "joinCount" => $payload['joinCount'],
@@ -474,6 +475,35 @@ function strip($msg) {
             return $pl;
         }        
     }
+
+        // curl bans information by pages, only if there is data in page
+        function curlBans($page) {
+            $bans = json_decode(curlData("https://bans.johnymuffin.com/api/v1/getBans?page=" . $page), true);
+            if(!$bans) {
+                return false;
+            }
+            else {
+                if(!empty($bans['bans'])) {
+                    return $bans['bans'];
+                }
+                else {
+                    return false;
+                }
+            }        
+        }
+
+        // curl the ban info by id
+        function curlBansInformation($id) {
+            $ban = json_decode(curlData("https://bans.johnymuffin.com/api/v1/getBanInfo?banID=" . $id), true);
+            if(!$ban) {
+                return false;
+            }
+            else {
+                return $ban;
+            }        
+        }
+
+    
 
     // check if a player is online
     function isPlayerOnline($db, $username) {
