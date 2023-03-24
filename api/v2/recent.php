@@ -30,7 +30,6 @@ foreach($updated as $k => $u) {
     ];
 }
 
-
 echo json_encode($builder, true);
 
 ?>

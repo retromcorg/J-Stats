@@ -34,7 +34,7 @@ foreach ($users as $user) {
             $data = [
                 "username" => $d['username'],
                 "lastJoin" => $u['lastJoin'],
-                "g" => $u['g'],
+		"g" => $u['g'],
                 "cape" => $u['cape']
             ];
 

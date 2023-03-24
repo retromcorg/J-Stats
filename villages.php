@@ -31,61 +31,27 @@ include_once("internal/backbone.php");
 <div class="container" style="margin-top:30px">
 
 <h2>Villages</h2>
-<p>Here you can see all the villages.</p>
+<p>Here you can search for villages.</p>
 
-<input class="form-control bg-dark" id="myInput" type="text" placeholder="Filter through list..">
+<input class="form-control bg-dark" id="villageSearch" type="text" placeholder="Search for a village..">
 <br>
-<div class="row">
 
-<?php
-
-$villages = $db->get("villages");
-
-foreach ($villages as $village) {
-
-?>
-<div class="col-lg-4 title">
-<div class="card bg-dark">
-<div class="card-header"><?php echo $village['name'] ?></div>
-<div class="card-body">
-<table class="table table-borderless table-sm">
-<thead>
-<tr>
-<th>Members</th>
-<th>Assistants</th>
-<th>Claims</th>
-</tr>
-<?php
-$v = getVillageStats($db, $village['id']);
-?>
-<tbody>
-<tr>
-    <td><?php echo $v['memberCount'] ?></td>
-    <td><?php echo $v['assistantsCount'] ?></td>
-    <td><?php echo $v['claims'] ?></td>
-</tr>
-</tbody>
+<div class="villagestb"></div>
+<div class="table-responsive-lg villagetb">
+        <table class="table table-dark table-borderless table-sm">
+            <thead><tr>
+                <th class="text-center">#</th>
+                <th>Village</th>
+                <th>Owned By</th>
+                <th>Claims</th>
+                <th>Members</th>
+                <th>Assistants</th>
+            </tr>
+</thead>
+<tbody class="village"></tbody>
 </table>
-<a href="village?u=<?php echo $village['uuid'] ?>" class="btn btn-sm btn-info">view village</a>
-</div>
-</div>
-<br>
-</div>
-<?php
-}
-?>
-</div>
 
-<script>
-$(document).ready(function(){
-$("#myInput").on("keyup", function() {
-var value = $(this).val().toLowerCase();
-$(".title").filter(function() {
-$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-});
-});
-});
-</script>
+</div>
 <script src="assets/js/app.js"></script>
 <?php include_once("includes/footer.php"); ?>
 </body>

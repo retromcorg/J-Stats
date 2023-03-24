@@ -24,6 +24,13 @@ $c4 = $db->getOne("users", "count(id) as cnt");
 $db->where("cape", "", "!=");
 $ca = $db->getOne("users", "count(id) as cnt");
 
+
+$db->where("pardoned", 0);
+$b = $db->getOne("user_bans", "count(id) as cnt");
+
+$db->where("pardoned", 1);
+$ub = $db->getOne("user_bans", "count(id) as cnt");
+
 // staff
 $db->where("g",$staff ,"IN");
 $h = $db->getOne("users", "COUNT(id) as cnt");
@@ -39,7 +46,9 @@ echo json_encode([
     "monthly_users" => $c4['cnt'], 
     "cape_users" => $ca['cnt'],
     "staff_users" => $h['cnt'],
-    "total_villages" => $v['cnt']
+    "total_villages" => $v['cnt'],
+    "total_active_bans" => $b['cnt'],
+    "total_inactive_bans" => $ub['cnt']
 ], true);
 
 

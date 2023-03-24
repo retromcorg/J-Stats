@@ -8,11 +8,11 @@ $key = "lgfio4jr3gjitg983g99853hgh34g893ghu";
 
 
 if(!isset($_GET['key']) || $_GET['key'] != $key) {
-	echo json_encode(["status" => "error", "msg" => "no access"], true);
+	echo json_encode(["status" => "error", "code" => 1, "msg" => "no access"], true);
 	die();
 }
 elseif (!isset($_GET['user'])) {
-	echo json_encode(["status" => "error", "msg" => "no username/uuid"], true);
+	echo json_encode(["status" => "error", "code" => 3, "msg" => "no username/uuid"], true);
 	die();
 }
 else {
@@ -24,11 +24,11 @@ else {
 		insertUserStats($db, $user['id'], $us);
 		updateUsers($db, $user['id'], $us);
 
-		echo json_encode(["status" => "success", "msg" => "forcefully updated user"], true);
+		echo json_encode(["status" => "success","msg" => "forcefully updated user"], true);
 		die();
 	}
 	else {
-		echo json_encode(["status" => "error", "msg" => "no user in db"], true);
+		echo json_encode(["status" => "error", "code" => 2,"msg" => "no user in db"], true);
 		die();
 	}
 }

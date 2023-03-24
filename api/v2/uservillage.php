@@ -53,7 +53,7 @@ else {
 	        $data = super_unique($data1, 'village_id');
 
            foreach($data as $d) {
-                   if(in_array($u, json_decode($d['members'], true))) {
+                   if(in_array($user['uuid'], json_decode($d['members'], true))) {
                         $builder['data']['member'][] = 
                         [
                             "village" => getVillageNameID($db, $d['village_id']),

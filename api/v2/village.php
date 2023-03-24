@@ -46,6 +46,7 @@ else {
         "owner" => getUsernameUUID($db,$v['owner']),
         "owner_uuid" => $v['owner'],
         "name" => $v['name'],
+	"uuid" => $v['uuid'],
         "assistants" => $v2['assistantsCount'],
         "assistantsList" => $asst,
         "members" => $v2['memberCount'],

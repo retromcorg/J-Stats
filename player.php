@@ -96,22 +96,22 @@ echo '<span class="banned">' . $user['username'] . '</span>';
 
 <div class="card-title">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Playtime</label>
-<span data-toggle="tooltip" data-placement="right" title="<?php  echo secondsToWords($user['playTime']); ?>"><?php  echo secondsToWordsMini($user['playTime']); ?> hours</span>
+<span data-toggle="tooltip" data-placement="right" title="<?php  echo secondsToWords($user['playTime']); ?>"><?php  echo number_format(secondsToWordsMini($user['playTime'])); ?> hours</span>
 </div>
 
 <div class="card-title">
 <label class='col-6 col-md-6' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's money activity"  href="./activity?u=<?php echo $u; ?>&a=money">Money</a></label>
-<?php echo floor($user['money']) ?>
+<?php echo number_format(floor($user['money'])) ?>
 </div>
 
 <div class="card-title">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Level</label>
-<?php echo $user['trustLevel'] ?>
+<?php echo number_format($user['trustLevel']) ?>
 </div>
 
 <div class="card-title">
 <label class='col-6 col-md-6' style='font-weight: bold;'>Score</label>
-<?php echo floor($user['trustScore']) ?>
+<?php echo number_format(floor($user['trustScore'])) ?>
 </div>
 
 <div class="card-title">
@@ -172,7 +172,7 @@ echo '<span class="banned">' . $user['username'] . '</span>';
 
 <div class="card-title">
 <label class='col-6 col-md-8' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's Mob kill activity"  href="./activity?u=<?php echo $u; ?>&a=creaturesKilled">Mob Kills</a></label>
-<?php  echo $user['creaturesKilled']; ?>
+<?php  echo number_format($user['creaturesKilled']); ?>
 </div>
 
 <div class="card-title">
@@ -182,22 +182,22 @@ echo '<span class="banned">' . $user['username'] . '</span>';
 
 <div class="card-title">
 <label class='col-6 col-md-8' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's Block Travel activity"  href="./activity?u=<?php echo $u; ?>&a=metersTraveled">Blocks Traveled</a></label>
-<?php  echo $user['metersTraveled']; ?>
+<?php  echo number_format($user['metersTraveled']); ?>
 </div>
 
 <div class="card-title">
 <label class='col-6 col-md-8' style='font-weight: bold;'>Blocks Placed</label>
-<?php  echo $user['blocksPlaced']; ?>
+<?php  echo number_format($user['blocksPlaced']); ?>
 </div>
 
 <div class="card-title">
 <label class='col-6 col-md-8' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's break block activity"  href="./activity?u=<?php echo $u; ?>&a=blocksDestroyed">Blocks Broken</a></label>
-<?php  echo $user['blocksDestroyed']; ?>
+<?php  echo number_format($user['blocksDestroyed']); ?>
 </div>
 
 <div class="card-title">
 <label class='col-6 col-md-8' style='font-weight: bold;'><a data-toggle="tooltip" data-placement="right" title="Click to view user's item drop activity"  href="./activity?u=<?php echo $u; ?>&a=itemsDropped">Items Dropped</a></label>
-<?php  echo $user['itemsDropped']; ?>
+<?php  echo number_format($user['itemsDropped']); ?>
 </div>
 
 </div>

@@ -25,6 +25,60 @@ setTooltip('Copied!', '.copybtn');
 hideTooltip(e.trigger, '.copybtn');
 });
 
+let lastValue = null;
+let empty = true;
+
+$("#villageSearch").on('paste', function(e) {
+  $(e.target).keyup();
+});
+
+$("#villageSearch").keyup(function() {
+  let name = $('#villageSearch').val();
+  if (name == "" || name.length < 3) {
+    $("#villagestb").html("");
+$(".villagetb").hide();
+    empty = true;
+  }else{
+    if(name == lastValue && empty == false){
+     return; 
+    }else{
+        lastValue = name;   
+        empty = false;
+    }
+    
+    $.ajax({
+      type: "POST",
+      url: "ajax/searchVillage.php",
+      data: {
+        search: name
+      },
+      dataType: 'json',
+      success: function(data) {
+        if(data.code == 2) {
+          $(".villagestb").show().html("No villages found");
+		$(".villagetb").hide();
+        }
+        else {
+          let builder = '';
+          data.data.forEach((element, key) => {
+              builder += `<tr>`
+              builder += `<td>${key+1}</td>`
+              builder += `<td><a href="./village?u=${element.uuid}">${element.name}</a></td>`
+              builder += `<td><img src="https://crafatar.com/avatars/${element.owner_uuid}?size=25&amp;overlay"> <a href="./player?u=${element.owner_uuid}"> ${element.owner}</a></td>`
+              builder += `<td>${element.claims.toLocaleString()}</td>`
+              builder += `<td>${element.members.toLocaleString()}</td>`
+              builder += `<td>${element.assistants.toLocaleString()}</td>`
+              builder += `</tr>`;
+          });
+
+	$(".villagestb").hide();
+	$(".villagetb").show();
+          $(".village").html(builder).show();
+        }
+      }
+    });
+  }
+});
 
 $("#searchForm").on("submit", function(event){
 event.preventDefault();
@@ -281,7 +335,13 @@ text = `<img src="https://crafatar.com/avatars/${element.uuid}?size=25&amp;overl
 result += '<tr>';
 result += `<td class="text-center">${key+1}</td>`;
 result += `<td>${text}</td>`;
-result += `<td>${element.value}</td>`;
+
+if(res.category == "playTime") {
+result += `<td>${moment.duration(element.value, "seconds").format("hh.mm")} hours</td>`
+}
+else {
+result += `<td>${element.value.toLocaleString()}</td>`;
+}
 result += '</tr>';
 
 });

@@ -10,6 +10,15 @@ color: rgb(219, 219, 219);
 font-family:'Minecraft'
 }
 
+.villagestb {
+    display: none;
+}
+.villagetb {
+    display: none;
+}
+.village {
+    display: none;
+}
 .breadcrumb-item {
 padding: none;
 }

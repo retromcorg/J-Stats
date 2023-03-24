@@ -2,6 +2,15 @@
 
 include_once("internal/backbone.php");
 
+$servers = curlServerInfo($db);
+
+$stats = json_decode(curlData("https://j-stats.xyz/api/v2/server"), true);
+
+
+foreach ($servers as $server) {
+$info = $server;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

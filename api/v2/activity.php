@@ -28,18 +28,19 @@ else {
         else {
             $db->groupBy($m);
             $db->where("user_id", $u2['id']);
-	    $db->orderBy("t", "ASC");
+	    $db->orderBy("t", "DESC");
             $stats = $db->get("user_stats",25);
+	    $s = array_reverse($stats);
 
 
-            if(!$stats) {
+            if(!$s) {
                 echo json_encode(["status" => "error", "code" => 2, "msg" => "no stats in db"], true);
                 die();
             }
             else {
                 $e = [];
 		        $h = [];
-                foreach($stats as $stat) {
+                foreach($s as $stat) {
                     $e[] = $stat[$m];
 		            $h[] = unix($stat["t"]);
                 }
